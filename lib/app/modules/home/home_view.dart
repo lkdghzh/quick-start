@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/home_controller.dart';
 import '../../widgets/base_layout.dart';
+import 'widgets/love_stack.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -17,16 +18,6 @@ class HomeContent extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    var pageviewController = PageController(initialPage: 1);
-    return SafeArea(
-      child: PageView(
-        controller: pageviewController,
-        children: [
-          Container(color: Colors.red),
-          Container(color: Colors.green),
-          Container(color: Colors.blue),
-        ],
-      ),
-    );
+    return SafeArea(child: LoveStack());
   }
 }
