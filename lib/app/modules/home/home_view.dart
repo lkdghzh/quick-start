@@ -8,9 +8,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseLayout(
-      body: HomeContent(),
-    );
+    return const BaseLayout(body: HomeContent());
   }
 }
 
@@ -19,20 +17,15 @@ class HomeContent extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Stack(
         children: [
-          const Icon(Icons.home, size: 100),
-          const SizedBox(height: 16),
-          Obx(() => Text(
-                controller.welcomeMessage.value,
-                style: Theme.of(context).textTheme.headlineMedium,
-              )),
-          const SizedBox(height: 32),
-          ElevatedButton(
-            onPressed: controller.updateWelcomeMessage,
-            child: const Text('点击我'),
+          Container(width: 300, height: 300, color: Colors.green),
+          Container(width: 200, height: 200, color: Colors.red[100]),
+          Positioned(
+            left: 50,
+            top: 50,
+            child: Container(width: 200, height: 200, color: Colors.blue[100]),
           ),
         ],
       ),
