@@ -17,16 +17,14 @@ class HomeContent extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    var pageviewController = PageController(initialPage: 1);
     return SafeArea(
-      child: Stack(
+      child: PageView(
+        controller: pageviewController,
         children: [
-          Container(width: 300, height: 300, color: Colors.green),
-          Container(width: 200, height: 200, color: Colors.red[100]),
-          Positioned(
-            left: 50,
-            top: 50,
-            child: Container(width: 200, height: 200, color: Colors.blue[100]),
-          ),
+          Container(color: Colors.red),
+          Container(color: Colors.green),
+          Container(color: Colors.blue),
         ],
       ),
     );
