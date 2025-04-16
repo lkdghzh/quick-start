@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 
 class LoveStack extends StatefulWidget {
   const LoveStack({super.key});
@@ -53,21 +55,21 @@ class LoveStackState extends State<LoveStack> {
             //  -(15 * index).toDouble()
             if (index == 1) {
               scale += 0.05 * progress;
-              offsetY += -(20 * index) * progress;
+              offsetY += (20 * index) * progress;
             }
             return Positioned.fill(
               child: Center(
                 child:
                     isTopCard
                         ? GestureDetector(
-                          onTap: () {
-                            print('11');
-                          },
+                          // onTap: () {
+                          //   print('11');
+                          // },
                           onPanStart: (details) => {print('panstart')},
                           onPanUpdate: (details) {
-                            print(
-                              'onPanUpdate ${details.delta}-${details.delta.dx}-${details.delta.dy} ${details.localPosition}',
-                            );
+                            // print(
+                            //   'onPanUpdate ${details.delta}-${details.delta.dx}-${details.delta.dy} ${details.localPosition}',
+                            // );
                             setState(() {
                               cardOffset += details.delta;
                               rotate = cardOffset.dx / 500;
@@ -88,12 +90,7 @@ class LoveStackState extends State<LoveStack> {
                             offsetY: offsetY,
                           ),
                         )
-                        : buildCard(
-                          data,
-                          scale: scale,
-                          offsetY: offsetY,
-                          // offsetY: -(15 * index).toDouble(),
-                        ),
+                        : buildCard(data, scale: scale, offsetY: offsetY),
               ),
             );
           }).toList(),
@@ -132,6 +129,7 @@ class LoveStackState extends State<LoveStack> {
         child: Transform.rotate(
           alignment: Alignment.bottomCenter,
           angle: rotate,
+          // child:ClipRRect(child: CachedNetworkImage(),)
           child: Container(
             width: 350,
             height: 500,
@@ -140,7 +138,12 @@ class LoveStackState extends State<LoveStack> {
               image: DecorationImage(
                 image:
                     data.imagePath.contains('http')
-                        ? NetworkImage(data.imagePath)
+                        // 1.插件cached_network_image 可缓存
+                        // 若已缓存，可本地读取，极快加载
+                        // 不支持占位图和错误图（它是 ImageProvider）
+                        ? CachedNetworkImageProvider(data.imagePath)
+                        // ?2 NetworkImage(data.imagePath) 正常网络加载
+                        // xxx 类型不能用? CachedNetworkImage(imageUrl: data.imagePath)
                         : AssetImage(data.imagePath),
                 fit: BoxFit.cover,
               ),
@@ -191,19 +194,16 @@ class LoveStackState extends State<LoveStack> {
     });
   }
 
-  double _getSecondScale() {
-    // 限制 scale 范围 0.95~1.0
-    double progress = (cardOffset.dx.abs() / 500).clamp(0.0, 1.0);
-    return 0.95 + 0.05 * progress;
-  }
-
-  double _getSecondRotate() {
-    // cardOffset.dx.abs() / 500
-    // 前水平滑动的距离标准化为一个「百分比」（最大 500 像素 → 进度 1.0）
-    // 无论滑多远，progress 都保持在 0.0 ~ 1.0 之间，更适合控制 UI 动画（比如渐变、缩放、透明度）
-    // 初始位移是 20，随滑动变为 0
-    double progress = (cardOffset.dx.abs() / 500).clamp(0.0, 1.0);
-    return 20 - 20 * progress;
+  Image getimageWithLoadingAndCache(imagePath) {
+    return Image.network(
+      imagePath,
+      fit: BoxFit.cover,
+      cacheWidth: 800, // 推荐加上
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(child: CircularProgressIndicator()); // 可替换为透明占位
+      },
+    );
   }
 }
 
