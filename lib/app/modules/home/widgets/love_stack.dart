@@ -17,15 +17,18 @@ class LoveStackState extends State<LoveStack> {
       "慢慢进步2",
       "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
     ),
-    UserCardData("慢慢进步3", "assets/girl1.png"),
-    UserCardData("可爱一点4", "assets/girl2.png"),
-    UserCardData("努力工作5", "assets/girl3.png"),
+    // UserCardData("慢慢进步3", "assets/girl1.png"),
+    // UserCardData("可爱一点4", "assets/girl2.png"),
+    // UserCardData("努力工作5", "assets/girl3.png"),
   ];
 
   Offset cardOffset = Offset.zero;
-  double rotation = 0;
+  double rotate = 0;
+
   @override
   Widget build(BuildContext context) {
+    const int visibleCardCount = 4;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -36,10 +39,22 @@ class LoveStackState extends State<LoveStack> {
             UserCardData data = entry.value;
 
             // 只显示前两张卡片（提高性能）
-            // if (index >= 2) return Container();
+
+            if (index >= visibleCardCount) return Container();
+            // if (index >= 2) return const SizedBox.shrink();
 
             bool isTopCard = index == 0;
+            // 计算缩放和偏移（下面卡片逐层变化）
+            double progress = (cardOffset.dx.abs() / 200).clamp(0.0, 1.0);
 
+            double scale = 1.0 - 0.03 * index;
+            double offsetY = -20.0 * index;
+
+            //  -(15 * index).toDouble()
+            if (index == 1) {
+              scale += 0.05 * progress;
+              offsetY += -(20 * index) * progress;
+            }
             return Positioned.fill(
               child: Center(
                 child:
@@ -55,7 +70,7 @@ class LoveStackState extends State<LoveStack> {
                             );
                             setState(() {
                               cardOffset += details.delta;
-                              rotation = cardOffset.dx / 500;
+                              rotate = cardOffset.dx / 500;
                             });
                           },
                           onPanEnd: (_) {
@@ -66,14 +81,18 @@ class LoveStackState extends State<LoveStack> {
                               resetCard();
                             }
                           },
-                          child: buildCard(data, cardOffset, rotation),
+                          child: buildCard(
+                            data,
+                            offset: cardOffset,
+                            rotate: rotate,
+                            offsetY: offsetY,
+                          ),
                         )
                         : buildCard(
                           data,
-                          Offset.zero,
-                          0.0,
-                          scale: 0.95,
-                          offsetY: -(15 * index).toDouble(),
+                          scale: scale,
+                          offsetY: offsetY,
+                          // offsetY: -(15 * index).toDouble(),
                         ),
               ),
             );
@@ -100,9 +119,9 @@ class LoveStackState extends State<LoveStack> {
   }
 
   Widget buildCard(
-    UserCardData data,
-    Offset offset,
-    double angle, {
+    UserCardData data, {
+    Offset offset = Offset.zero,
+    double rotate = 0,
     double scale = 1.0,
     double offsetY = 0,
   }) {
@@ -112,7 +131,7 @@ class LoveStackState extends State<LoveStack> {
         scale: scale,
         child: Transform.rotate(
           alignment: Alignment.bottomCenter,
-          angle: angle,
+          angle: rotate,
           child: Container(
             width: 350,
             height: 500,
@@ -161,15 +180,30 @@ class LoveStackState extends State<LoveStack> {
     setState(() {
       cards.removeAt(0);
       cardOffset = Offset.zero;
-      rotation = 0;
+      rotate = 0;
     });
   }
 
   void resetCard() {
     setState(() {
       cardOffset = Offset.zero;
-      rotation = 0;
+      rotate = 0;
     });
+  }
+
+  double _getSecondScale() {
+    // 限制 scale 范围 0.95~1.0
+    double progress = (cardOffset.dx.abs() / 500).clamp(0.0, 1.0);
+    return 0.95 + 0.05 * progress;
+  }
+
+  double _getSecondRotate() {
+    // cardOffset.dx.abs() / 500
+    // 前水平滑动的距离标准化为一个「百分比」（最大 500 像素 → 进度 1.0）
+    // 无论滑多远，progress 都保持在 0.0 ~ 1.0 之间，更适合控制 UI 动画（比如渐变、缩放、透明度）
+    // 初始位移是 20，随滑动变为 0
+    double progress = (cardOffset.dx.abs() / 500).clamp(0.0, 1.0);
+    return 20 - 20 * progress;
   }
 }
 
