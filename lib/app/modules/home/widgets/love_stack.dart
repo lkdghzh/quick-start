@@ -14,20 +14,12 @@ class LoveStackState extends State<LoveStack> {
       "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
     ),
     UserCardData(
-      "短发气质2",
-      "https://images.pexels.com/photos/853199/pexels-photo-853199.jpeg",
-    ),
-    UserCardData(
-      "慢慢进步3",
-      "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
-    ),
-    UserCardData(
-      "慢慢进步4",
+      "慢慢进步2",
       "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
     ),
-    UserCardData("慢慢进步5", "assets/girl1.png"),
-    UserCardData("可爱一点6", "assets/girl2.png"),
-    UserCardData("努力工作7", "assets/girl3.png"),
+    UserCardData("慢慢进步3", "assets/girl1.png"),
+    UserCardData("可爱一点4", "assets/girl2.png"),
+    UserCardData("努力工作5", "assets/girl3.png"),
   ];
 
   Offset cardOffset = Offset.zero;
@@ -39,12 +31,12 @@ class LoveStackState extends State<LoveStack> {
       body: Stack(
         children: [
           // 卡片叠加部分
-          ...cards.asMap().entries.map((entry) {
+          ...cards.asMap().entries.toList().reversed.map((entry) {
             int index = entry.key;
             UserCardData data = entry.value;
 
             // 只显示前两张卡片（提高性能）
-            if (index >= 2) return Container();
+            // if (index >= 2) return Container();
 
             bool isTopCard = index == 0;
 
@@ -58,13 +50,17 @@ class LoveStackState extends State<LoveStack> {
                           },
                           onPanStart: (details) => {print('panstart')},
                           onPanUpdate: (details) {
+                            print(
+                              'onPanUpdate ${details.delta}-${details.delta.dx}-${details.delta.dy} ${details.localPosition}',
+                            );
                             setState(() {
                               cardOffset += details.delta;
-                              rotation = cardOffset.dx / 300;
+                              rotation = cardOffset.dx / 500;
                             });
                           },
                           onPanEnd: (_) {
-                            if (cardOffset.dx.abs() > 120) {
+                            print('onPanEnd $cardOffset');
+                            if (cardOffset.dx.abs() > 80) {
                               removeTopCard();
                             } else {
                               resetCard();
@@ -77,7 +73,7 @@ class LoveStackState extends State<LoveStack> {
                           Offset.zero,
                           0.0,
                           scale: 0.95,
-                          offsetY: 20,
+                          offsetY: -(15 * index).toDouble(),
                         ),
               ),
             );
@@ -115,6 +111,7 @@ class LoveStackState extends State<LoveStack> {
       child: Transform.scale(
         scale: scale,
         child: Transform.rotate(
+          alignment: Alignment.bottomCenter,
           angle: angle,
           child: Container(
             width: 350,
