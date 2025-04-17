@@ -12,16 +12,16 @@ class LoveStack extends StatefulWidget {
 class LoveStackState extends State<LoveStack> {
   List<UserCardData> cards = [
     UserCardData(
-      "文静女孩1",
+      "文静女孩11111221111",
       "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
     ),
     UserCardData(
       "慢慢进步2",
       "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
     ),
-    // UserCardData("慢慢进步3", "assets/girl1.png"),
-    // UserCardData("可爱一点4", "assets/girl2.png"),
-    // UserCardData("努力工作5", "assets/girl3.png"),
+    UserCardData("慢慢进步3", "assets/girl1.png"),
+    UserCardData("可爱一点4", "assets/girl2.png"),
+    UserCardData("努力工作5", "assets/girl3.png"),
   ];
 
   Offset cardOffset = Offset.zero;
@@ -40,19 +40,18 @@ class LoveStackState extends State<LoveStack> {
             int index = entry.key;
             UserCardData data = entry.value;
 
+            // print('$index ${data.name}');
             // 只显示前两张卡片（提高性能）
-
             if (index >= visibleCardCount) return Container();
-            // if (index >= 2) return const SizedBox.shrink();
-
-            bool isTopCard = index == 0;
-            // 计算缩放和偏移（下面卡片逐层变化）
-            double progress = (cardOffset.dx.abs() / 200).clamp(0.0, 1.0);
 
             double scale = 1.0 - 0.03 * index;
             double offsetY = -20.0 * index;
 
             //  -(15 * index).toDouble()
+            // 计算缩放和偏移（下面卡片逐层变化） 最大判定距离200
+            // 拖动时 progress为0，只有在拖动时才会下移和放大
+            double progress = (cardOffset.dx.abs() / 350).clamp(0.0, 1.0);
+            print('$progress');
             if (index == 1) {
               scale += 0.05 * progress;
               offsetY += (20 * index) * progress;
@@ -60,24 +59,25 @@ class LoveStackState extends State<LoveStack> {
             return Positioned.fill(
               child: Center(
                 child:
-                    isTopCard
+                    index == 0
                         ? GestureDetector(
-                          // onTap: () {
-                          //   print('11');
-                          // },
-                          onPanStart: (details) => {print('panstart')},
                           onPanUpdate: (details) {
-                            // print(
-                            //   'onPanUpdate ${details.delta}-${details.delta.dx}-${details.delta.dy} ${details.localPosition}',
-                            // );
                             setState(() {
                               cardOffset += details.delta;
-                              rotate = cardOffset.dx / 500;
+                              // print(details.localPosition);
+                              // 向左拖 cardOffset为负值
+                              print(cardOffset);
+                              // 拖拽点在图片下半部分
+                              if (details.localPosition.dy < 500 / 2) {
+                                rotate = cardOffset.dx / 1500;
+                              } else {
+                                // 拖拽点在图片下半部分
+                                rotate = -cardOffset.dx / 1500;
+                              }
                             });
                           },
                           onPanEnd: (_) {
-                            print('onPanEnd $cardOffset');
-                            if (cardOffset.dx.abs() > 80) {
+                            if (cardOffset.dx.abs() > 120) {
                               removeTopCard();
                             } else {
                               resetCard();
@@ -87,7 +87,6 @@ class LoveStackState extends State<LoveStack> {
                             data,
                             offset: cardOffset,
                             rotate: rotate,
-                            offsetY: offsetY,
                           ),
                         )
                         : buildCard(data, scale: scale, offsetY: offsetY),
@@ -127,43 +126,50 @@ class LoveStackState extends State<LoveStack> {
       child: Transform.scale(
         scale: scale,
         child: Transform.rotate(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
           angle: rotate,
-          // child:ClipRRect(child: CachedNetworkImage(),)
           child: Container(
             width: 350,
             height: 500,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image:
-                    data.imagePath.contains('http')
-                        // 1.插件cached_network_image 可缓存
-                        // 若已缓存，可本地读取，极快加载
-                        // 不支持占位图和错误图（它是 ImageProvider）
-                        ? CachedNetworkImageProvider(data.imagePath)
-                        // ?2 NetworkImage(data.imagePath) 正常网络加载
-                        // xxx 类型不能用? CachedNetworkImage(imageUrl: data.imagePath)
-                        : AssetImage(data.imagePath),
-                fit: BoxFit.cover,
-              ),
               boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black26)],
             ),
-            child: Stack(
-              children: [
-                Positioned(
-                  bottom: 20,
-                  left: 15,
-                  child: Text(
-                    data.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: [
+                  data.imagePath.contains('http')
+                      ? CachedNetworkImage(
+                        imageUrl: data.imagePath,
+                        width: 350,
+                        height: 500,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            (context, url) =>
+                                Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                      : Image.asset(
+                        data.imagePath,
+                        width: 350,
+                        height: 500,
+                        fit: BoxFit.cover,
+                      ),
+                  Positioned(
+                    bottom: 20,
+                    left: 15,
+                    child: Text(
+                      data.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

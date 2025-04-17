@@ -1,0 +1,24 @@
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+
+    {
+      "name": "真机",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",          // 保证是真机调试
+      "deviceId": "00008140-001C792A0278801C",              // 自动选中当前连接的设备（iOS/Android）
+      "args": ["--hot"]                // 开启热重载（默认已开启，这里只是明确写出来）
+    },
+    {
+      "name": "ios",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "iphone"
+    }
+  ]
+}
