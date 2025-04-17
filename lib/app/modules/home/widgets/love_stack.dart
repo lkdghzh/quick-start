@@ -12,7 +12,7 @@ class LoveStack extends StatefulWidget {
 class LoveStackState extends State<LoveStack> {
   List<UserCardData> cards = [
     UserCardData(
-      "文静女孩11111221111",
+      "文静女孩11",
       "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
     ),
     UserCardData(
@@ -26,7 +26,7 @@ class LoveStackState extends State<LoveStack> {
 
   Offset cardOffset = Offset.zero;
   double rotate = 0;
-  ({double width, double height}) cardStyle = (width: 350.0, height: 500.0);
+  ({double width, double height}) cardStyle = (width: 360.0, height: 500.0);
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +55,10 @@ class LoveStackState extends State<LoveStack> {
               0.0,
               1.0,
             );
-            print('$progress');
+            // print('$progress');
             if (index == 1) {
-              scale += 0.05 * progress;
-              offsetY += (20 * index) * progress;
+              scale += 0.08 * progress;
+              offsetY += (20 + 10 * index) * progress;
             }
             return Positioned.fill(
               child: Center(
@@ -101,15 +101,35 @@ class LoveStackState extends State<LoveStack> {
 
           // 底部操作栏
           Positioned(
-            bottom: 40,
+            bottom: 80,
             left: 0,
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 actionButton(Icons.refresh, Colors.yellow),
-                actionButton(Icons.clear, Colors.black),
-                actionButton(Icons.favorite, Colors.pink),
+                Container(
+                  width: 80,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50), // ✅ 圆角 50
+                    color: Colors.white,
+                  ),
+                  child: Icon(
+                    Icons.clear,
+                    size: 30,
+                    color: const Color.fromARGB(255, 186, 134, 134),
+                  ),
+                ),
+                Container(
+                  width: 80,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50), // ✅ 圆角 50
+                    color: Colors.white,
+                  ),
+                  child: Icon(Icons.favorite, size: 30, color: Colors.pink),
+                ),
                 actionButton(Icons.star, Colors.blue),
               ],
             ),
@@ -133,15 +153,14 @@ class LoveStackState extends State<LoveStack> {
         child: Transform.rotate(
           alignment: Alignment.center,
           angle: rotate,
-          child: Container(
-            width: cardStyle.width,
-            height: cardStyle.height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black26)],
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+            child: Container(
+              width: cardStyle.width,
+              height: cardStyle.height + 120,
               child: Stack(
                 children: [
                   data.imagePath.contains('http')
@@ -162,15 +181,127 @@ class LoveStackState extends State<LoveStack> {
                         fit: BoxFit.cover,
                       ),
                   Positioned(
-                    bottom: 20,
-                    left: 15,
-                    child: Text(
-                      data.name,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        width: cardStyle.width,
+                        height: 150,
+                        // color: Colors.green,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black87,
+                              Colors.black,
+                            ],
+                            stops: [0.0, 0.2, 1],
+                          ),
+                        ),
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 120,
+                    left: 15,
+                    // right: 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data.name,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+
+                        Text(
+                          ['播音主持', '文化', '传媒'].join('/'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+
+                        Row(
+                          children: [
+                            Container(
+                              height: 26,
+                              constraints: BoxConstraints(minWidth: 50),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                                color: Colors.pink,
+                              ),
+                              child: Text(
+                                '24',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            Container(
+                              height: 30,
+                              width: 60,
+                              // constraints: BoxConstraints(minWidth: 60),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                                color: const Color.fromARGB(255, 84, 81, 81),
+                              ),
+                              child: Text(
+                                '天秤座',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            // Spacer(),
+                            SizedBox(width: 120),
+
+                            Container(
+                              height: 30,
+                              width: 80,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                                color: const Color.fromARGB(255, 84, 81, 81),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
+                                child: Text(
+                                  '查看资料',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -183,10 +314,12 @@ class LoveStackState extends State<LoveStack> {
   }
 
   Widget actionButton(IconData icon, Color color) {
-    return CircleAvatar(
-      radius: 30,
-      backgroundColor: color.withOpacity(0.1),
-      child: Icon(icon, size: 30, color: color),
+    return InkWell(
+      child: CircleAvatar(
+        radius: 28,
+        backgroundColor: color.withOpacity(0.2),
+        child: Icon(icon, size: 30, color: color),
+      ),
     );
   }
 
