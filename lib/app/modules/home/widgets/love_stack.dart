@@ -29,7 +29,7 @@ class LoveStackState extends State<LoveStack> {
 
   @override
   Widget build(BuildContext context) {
-    const int visibleCardCount = 4;
+    const int visibleCardCount = 3;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -41,7 +41,7 @@ class LoveStackState extends State<LoveStack> {
             UserCardData data = entry.value;
 
             // print('$index ${data.name}');
-            // 只显示前两张卡片（提高性能）
+            // 只显示前3张卡片（提高性能）
             if (index >= visibleCardCount) return Container();
 
             double scale = 1.0 - 0.03 * index;
