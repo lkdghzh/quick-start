@@ -26,6 +26,7 @@ class LoveStackState extends State<LoveStack> {
 
   Offset cardOffset = Offset.zero;
   double rotate = 0;
+  ({double width, double height}) cardStyle = (width: 350.0, height: 500.0);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,10 @@ class LoveStackState extends State<LoveStack> {
             //  -(15 * index).toDouble()
             // 计算缩放和偏移（下面卡片逐层变化） 最大判定距离200
             // 拖动时 progress为0，只有在拖动时才会下移和放大
-            double progress = (cardOffset.dx.abs() / 350).clamp(0.0, 1.0);
+            double progress = (cardOffset.dx.abs() / cardStyle.width).clamp(
+              0.0,
+              1.0,
+            );
             print('$progress');
             if (index == 1) {
               scale += 0.05 * progress;
@@ -68,7 +72,8 @@ class LoveStackState extends State<LoveStack> {
                               // 向左拖 cardOffset为负值
                               print(cardOffset);
                               // 拖拽点在图片下半部分
-                              if (details.localPosition.dy < 500 / 2) {
+                              if (details.localPosition.dy <
+                                  cardStyle.height / 2) {
                                 rotate = cardOffset.dx / 1500;
                               } else {
                                 // 拖拽点在图片下半部分
@@ -129,8 +134,8 @@ class LoveStackState extends State<LoveStack> {
           alignment: Alignment.center,
           angle: rotate,
           child: Container(
-            width: 350,
-            height: 500,
+            width: cardStyle.width,
+            height: cardStyle.height,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black26)],
@@ -142,8 +147,8 @@ class LoveStackState extends State<LoveStack> {
                   data.imagePath.contains('http')
                       ? CachedNetworkImage(
                         imageUrl: data.imagePath,
-                        width: 350,
-                        height: 500,
+                        width: cardStyle.width,
+                        height: cardStyle.height,
                         fit: BoxFit.cover,
                         placeholder:
                             (context, url) =>
@@ -198,18 +203,6 @@ class LoveStackState extends State<LoveStack> {
       cardOffset = Offset.zero;
       rotate = 0;
     });
-  }
-
-  Image getimageWithLoadingAndCache(imagePath) {
-    return Image.network(
-      imagePath,
-      fit: BoxFit.cover,
-      cacheWidth: 800, // 推荐加上
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(child: CircularProgressIndicator()); // 可替换为透明占位
-      },
-    );
   }
 }
 
