@@ -377,6 +377,7 @@ class LoveStackState extends State<LoveStack>
     });
   }
 
+  // 下次拖动前，将上次拖动置位0
   void _initAnimation() {
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
