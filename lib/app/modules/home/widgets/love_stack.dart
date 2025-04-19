@@ -9,7 +9,8 @@ class LoveStack extends StatefulWidget {
   State<LoveStack> createState() => LoveStackState();
 }
 
-class LoveStackState extends State<LoveStack> {
+class LoveStackState extends State<LoveStack>
+    with SingleTickerProviderStateMixin {
   List<UserCardData> cards = [
     UserCardData(
       "文静女孩11",
@@ -27,6 +28,35 @@ class LoveStackState extends State<LoveStack> {
   Offset cardOffset = Offset.zero;
   double rotate = 0;
   ({double width, double height}) cardStyle = (width: 360.0, height: 500.0);
+
+  late final AnimationController _animationController;
+  late Animation _slideAnimation;
+  late Animation _rotateAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _animationController.addListener(() {
+      print('controller ${_animationController.value}');
+      print('slide val ${_slideAnimation.value}');
+      print('rotate val  ${_rotateAnimation.value}');
+      setState(() {
+        cardOffset = _slideAnimation.value;
+        rotate = _rotateAnimation.value;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +100,7 @@ class LoveStackState extends State<LoveStack> {
                               cardOffset += details.delta;
                               // print(details.localPosition);
                               // 向左拖 cardOffset为负值
-                              print(cardOffset);
+                              // print(cardOffset);
                               // 拖拽点在图片下半部分
                               if (details.localPosition.dy <
                                   cardStyle.height / 2) {
@@ -83,8 +113,10 @@ class LoveStackState extends State<LoveStack> {
                           },
                           onPanEnd: (_) {
                             if (cardOffset.dx.abs() > 120) {
+                              print('remove');
                               removeTopCard();
                             } else {
+                              print('reset');
                               resetCard();
                             }
                           },
@@ -324,17 +356,53 @@ class LoveStackState extends State<LoveStack> {
   }
 
   void removeTopCard() {
-    setState(() {
-      cards.removeAt(0);
-      cardOffset = Offset.zero;
-      rotate = 0;
+    double screenWidth = MediaQuery.of(context).size.width;
+    _slideAnimation = Tween<Offset>(
+      begin: cardOffset,
+      end: Offset(cardOffset.dx > 0 ? screenWidth : -screenWidth, 0),
+    ).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
+    _rotateAnimation = Tween<double>(begin: rotate, end: rotate * 2).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
+
+    _animationController.forward().then((_) {
+      setState(() {
+        cards.removeAt(0);
+        // cardOffset = Offset.zero;
+        // rotate = 0;
+      });
+      _initAnimation();
     });
   }
 
+  void _initAnimation() {
+    _slideAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
+    _rotateAnimation = Tween<double>(begin: 0.0, end: 0.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
+    _animationController.reset();
+  }
+
   void resetCard() {
-    setState(() {
-      cardOffset = Offset.zero;
-      rotate = 0;
+    _slideAnimation = Tween<Offset>(
+      begin: cardOffset,
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
+
+    _rotateAnimation = Tween<double>(begin: rotate, end: 0.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
+    _animationController.forward().then((_) {
+      _initAnimation();
     });
   }
 }
