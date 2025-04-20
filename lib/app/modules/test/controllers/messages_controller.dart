@@ -13,11 +13,7 @@ class MessagesController extends GetxController {
   Future<void> loadMessages() async {
     isLoading.value = true;
     await Future.delayed(const Duration(seconds: 1)); // 模拟加载
-    messages.assignAll([
-      '消息1: 你好',
-      '消息2: GetX很棒',
-      '消息3: Flutter很棒',
-    ]);
+    messages.assignAll(['消息1: 你好', '消息2: GetX很棒', '消息3: Flutter很棒']);
     isLoading.value = false;
   }
 

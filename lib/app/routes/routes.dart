@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import '../modules/home/bindings/home_binding.dart';
+import '../modules/star/bindings/stars_binding.dart';
+import '../modules/star/views/stars.dart';
 import '../modules/test/bindings/messages_binding.dart';
 import '../modules/profile/binding.dart';
 import '../modules/home/home_view.dart';
@@ -21,6 +23,12 @@ class AppPages {
       name: Routes.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
+      transition: Transition.fade,
+    ),
+    GetPage(
+      name: Routes.STARS,
+      page: () => const StarsView(),
+      binding: StarsBinding(),
       transition: Transition.fade,
     ),
     GetPage(

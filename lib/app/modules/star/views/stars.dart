@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../widgets/layout/view.dart';
-import '../controllers/chats_controller.dart';
+import '../controllers/stars_controller.dart';
 
-class ChatsView extends GetView<ChatListController> {
-  const ChatsView({super.key});
+class StarsView extends GetView<StarsController> {
+  const StarsView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
-      title: '消息',
+      title: '对我心动',
       body: Scaffold(
         // appBar: AppBar(
         //   title: Text(
