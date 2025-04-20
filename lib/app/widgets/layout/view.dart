@@ -13,19 +13,7 @@ class BaseLayout extends GetView<NavigationController> {
     // final navigationController = Get.find<NavigationController>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title,
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0.5,
-        centerTitle: true,
-      ),
+      appBar: buildAppBar(),
       body: body,
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
@@ -35,7 +23,7 @@ class BaseLayout extends GetView<NavigationController> {
           selectedItemColor: Colors.pink,
           unselectedItemColor: Colors.grey,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: '广场'),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite_outline),
               activeIcon: Icon(Icons.favorite),
@@ -52,5 +40,23 @@ class BaseLayout extends GetView<NavigationController> {
         ),
       ),
     );
+  }
+
+  AppBar? buildAppBar() {
+    return title == ''
+        ? null
+        : AppBar(
+          title: Text(
+            title,
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          centerTitle: true,
+        );
   }
 }
