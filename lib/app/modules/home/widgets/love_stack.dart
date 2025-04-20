@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoveStack extends StatefulWidget {
   const LoveStack({super.key});
@@ -284,18 +285,30 @@ class LoveStackState extends State<LoveStack>
               Spacer(),
               Row(
                 children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: const Color.fromARGB(255, 84, 81, 81),
-                    ),
-                    child: Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.white,
-                      size: 18,
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                        '/chat/detail',
+                        arguments: {
+                          'id': '1',
+                          'name': data.name,
+                          'avatar': data.imagePath,
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: const Color.fromARGB(255, 84, 81, 81),
+                      ),
+                      child: Icon(
+                        Icons.chat_bubble_outline,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                     ),
                   ),
                   SizedBox(width: 8),
