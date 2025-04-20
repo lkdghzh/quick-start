@@ -9,6 +9,7 @@ class MessagesView extends GetView<MessagesController> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      title: '消息',
       body: RefreshIndicator(
         onRefresh: controller.refreshMessages,
         child: Obx(() {

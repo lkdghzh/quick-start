@@ -9,20 +9,21 @@ class ChatListView extends GetView<ChatListController> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      title: '对我心动',
       body: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '消息',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0.5,
-          centerTitle: true,
-        ),
+        // appBar: AppBar(
+        //   title: Text(
+        //     '消息',
+        //     style: TextStyle(
+        //       color: Colors.black87,
+        //       fontSize: 20,
+        //       fontWeight: FontWeight.bold,
+        //     ),
+        //   ),
+        //   backgroundColor: Colors.white,
+        //   elevation: 0.5,
+        //   centerTitle: true,
+        // ),
         body: Obx(
           () => ListView.builder(
             itemCount: controller.chatList.length,

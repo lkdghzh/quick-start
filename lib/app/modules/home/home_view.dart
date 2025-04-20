@@ -9,7 +9,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseLayout(body: HomeContent());
+    return const BaseLayout(title: '', body: HomeContent());
   }
 }
 

@@ -9,6 +9,7 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      title: '我的',
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
