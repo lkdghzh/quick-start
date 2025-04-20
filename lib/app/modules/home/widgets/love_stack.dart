@@ -344,7 +344,7 @@ class LoveStackState extends State<LoveStack>
   // 底部操作栏
   Widget buildActions() {
     return Positioned(
-      bottom: 70.h,
+      bottom: 60.h,
       left: 0,
       right: 0,
       child: Row(
