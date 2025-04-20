@@ -13,9 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('--${MediaQuery.of(context).size}');
+    print('--${MediaQuery.of(context).size} ');
     return ScreenUtilInit(
-      designSize: const Size(375, 812), // 基准宽度 375px，高度 812px（iPhone 13）
+      // 基准宽度 375px，高度 812px（iPhone X、iPhone 11 Pro、iPhone 12 mini、iPhone 13 mini）
+      designSize: const Size(375, 812),
+      // 基准宽度 375px，高度 812px（iPhone 6）
+      // designSize: const Size(375, 667),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {

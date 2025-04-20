@@ -28,7 +28,7 @@ class LoveStackState extends State<LoveStack>
 
   Offset cardOffset = Offset.zero;
   double rotate = 0;
-  ({double width, double height}) cardStyle = (width: 360.0, height: 500.0);
+  ({double width, double height}) cardStyle = (width: 360.0.w, height: 500.0.h);
 
   late final AnimationController _animationController;
   late Animation _slideAnimation;
@@ -85,7 +85,7 @@ class LoveStackState extends State<LoveStack>
       if (index >= visibleCardCount) return Container();
 
       double scale = 1.0 - 0.03 * index;
-      double offsetY = -20.0 * index;
+      double offsetY = -20.0.h * index;
 
       //  -(15 * index).toDouble()
       // 计算缩放和偏移（下面卡片逐层变化） 最大判定距离200
@@ -126,7 +126,7 @@ class LoveStackState extends State<LoveStack>
         });
       },
       onPanEnd: (_) {
-        if (cardOffset.dx.abs() > 120) {
+        if (cardOffset.dx.abs() > 100) {
           // print('remove');
           removeTopCard();
         } else {
@@ -155,12 +155,12 @@ class LoveStackState extends State<LoveStack>
           angle: rotate,
           child: ClipRRect(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20.r),
+              topRight: Radius.circular(20.r),
             ),
             child: Container(
               width: cardStyle.width,
-              height: cardStyle.height + 120,
+              height: cardStyle.height + 120.h,
               child: Stack(
                 children: [buildIMG(data), buildBottomStyle(), buildInfo(data)],
               ),
@@ -203,8 +203,8 @@ class LoveStackState extends State<LoveStack>
           // color: Colors.green,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20.r),
+              bottomRight: Radius.circular(20.r),
             ),
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -221,9 +221,9 @@ class LoveStackState extends State<LoveStack>
   // 卡片信息
   Positioned buildInfo(UserCardData data) {
     return Positioned(
-      bottom: 120,
-      left: 15,
-      right: 15, // 添加right约束以便更好地控制布局
+      bottom: 120.h,
+      left: 15.w,
+      right: 15.w, // 添加right约束以便更好地控制布局
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -231,31 +231,31 @@ class LoveStackState extends State<LoveStack>
             data.name,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 28,
+              fontSize: 28.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 2),
+          SizedBox(height: 2.h),
 
           Text(
             ['播音主持', '文化', '传媒'].join(' · '),
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
 
           Row(
             children: [
               Container(
-                height: 30,
-                constraints: BoxConstraints(minWidth: 50),
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                height: 30.h,
+                constraints: BoxConstraints(minWidth: 50.w),
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: BorderRadius.all(Radius.circular(5.r)),
                   color: Colors.pink,
                 ),
                 child: Text(
@@ -266,13 +266,13 @@ class LoveStackState extends State<LoveStack>
                   ),
                 ),
               ),
-              SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Container(
-                height: 30,
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                height: 30.h,
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: BorderRadius.all(Radius.circular(5.r)),
                   color: const Color.fromARGB(255, 84, 81, 81),
                 ),
                 child: Text(
@@ -298,31 +298,31 @@ class LoveStackState extends State<LoveStack>
                       );
                     },
                     child: Container(
-                      height: 30,
-                      width: 30,
+                      height: 30.h,
+                      width: 30.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(5.r),
                         color: const Color.fromARGB(255, 84, 81, 81),
                       ),
                       child: Icon(
                         Icons.chat_bubble_outline,
                         color: Colors.white,
-                        size: 18,
+                        size: 18.sp,
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Container(
-                    height: 30,
-                    constraints: BoxConstraints(minWidth: 80),
+                    height: 30.h,
+                    constraints: BoxConstraints(minWidth: 80.w),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: BorderRadius.all(Radius.circular(5.r)),
                       color: const Color.fromARGB(255, 84, 81, 81),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: Text(
                         '查看资料',
                         style: TextStyle(
@@ -344,7 +344,7 @@ class LoveStackState extends State<LoveStack>
   // 底部操作栏
   Widget buildActions() {
     return Positioned(
-      bottom: 80,
+      bottom: 70.h,
       left: 0,
       right: 0,
       child: Row(
@@ -352,26 +352,26 @@ class LoveStackState extends State<LoveStack>
         children: [
           actionButton(Icons.refresh, Colors.yellow),
           Container(
-            width: 80,
-            height: 50,
+            width: 80.w,
+            height: 50.h,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(50.r),
               color: Colors.white,
             ),
             child: Icon(
               Icons.clear,
-              size: 30,
+              size: 30.sp,
               color: const Color.fromARGB(255, 186, 134, 134),
             ),
           ),
           Container(
-            width: 80,
-            height: 50,
+            width: 80.h,
+            height: 50.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(50.r),
               color: Colors.white,
             ),
-            child: Icon(Icons.favorite, size: 30, color: Colors.pink),
+            child: Icon(Icons.favorite, size: 30.sp, color: Colors.pink),
           ),
           actionButton(Icons.star, Colors.blue),
         ],
@@ -383,9 +383,9 @@ class LoveStackState extends State<LoveStack>
   Widget actionButton(IconData icon, Color color) {
     return InkWell(
       child: CircleAvatar(
-        radius: 28,
+        radius: 28.r,
         backgroundColor: color.withOpacity(0.2),
-        child: Icon(icon, size: 30, color: color),
+        child: Icon(icon, size: 30.sp, color: color),
       ),
     );
   }
