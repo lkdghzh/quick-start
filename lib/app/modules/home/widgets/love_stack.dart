@@ -221,7 +221,7 @@ class LoveStackState extends State<LoveStack>
     return Positioned(
       bottom: 120,
       left: 15,
-      // right: 0,
+      right: 15, // 添加right约束以便更好地控制布局
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -236,7 +236,7 @@ class LoveStackState extends State<LoveStack>
           SizedBox(height: 2),
 
           Text(
-            ['播音主持', '文化', '传媒'].join('/'),
+            ['播音主持', '文化', '传媒'].join(' · '),
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -248,8 +248,9 @@ class LoveStackState extends State<LoveStack>
           Row(
             children: [
               Container(
-                height: 26,
+                height: 30,
                 constraints: BoxConstraints(minWidth: 50),
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -263,11 +264,10 @@ class LoveStackState extends State<LoveStack>
                   ),
                 ),
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 12),
               Container(
                 height: 30,
-                width: 60,
-                // constraints: BoxConstraints(minWidth: 60),
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -281,27 +281,44 @@ class LoveStackState extends State<LoveStack>
                   ),
                 ),
               ),
-              // Spacer(),
-              SizedBox(width: 120),
-
-              Container(
-                height: 30,
-                width: 80,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: const Color.fromARGB(255, 84, 81, 81),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
-                  child: Text(
-                    '查看资料',
-                    style: TextStyle(
+              Spacer(),
+              Row(
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color.fromARGB(255, 84, 81, 81),
+                    ),
+                    child: Icon(
+                      Icons.chat_bubble_outline,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      size: 18,
                     ),
                   ),
-                ),
+                  SizedBox(width: 8),
+                  Container(
+                    height: 30,
+                    constraints: BoxConstraints(minWidth: 80),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: const Color.fromARGB(255, 84, 81, 81),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        '查看资料',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
