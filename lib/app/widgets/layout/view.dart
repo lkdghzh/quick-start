@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/navigation_controller.dart';
+import 'controller.dart';
 
 class BaseLayout extends StatelessWidget {
   final Widget body;

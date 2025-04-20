@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controller.dart';
-import '../../widgets/base_layout.dart';
+import '../../widgets/layout/view.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});

@@ -9,7 +9,7 @@ import '../modules/chat/views/chat_list_view.dart';
 import '../modules/chat/views/chat_detail_view.dart';
 import '../modules/chat/bindings/chat_binding.dart';
 
-part 'app_routes.dart';
+part 'names.dart';
 
 class AppPages {
   AppPages._();

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../routes/app_pages.dart';
+import '../../routes/routes.dart';
 
 class NavigationController extends GetxController {
   final RxInt selectedIndex = 0.obs;

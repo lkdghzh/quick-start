@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/home_controller.dart';
-import '../../widgets/base_layout.dart';
+import '../../widgets/layout/view.dart';
 import 'widgets/love_stack.dart';
 
 class HomeView extends GetView<HomeController> {
