@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class LoveStack extends StatefulWidget {
@@ -198,7 +199,7 @@ class LoveStackState extends State<LoveStack>
       child: Center(
         child: Container(
           width: cardStyle.width,
-          height: 150,
+          height: 150.h,
           // color: Colors.green,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

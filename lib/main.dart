@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/bindings/initial_binding.dart';
 import 'app/routes/routes.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,16 +13,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'SiM',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      initialBinding: InitialBinding(),
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-      debugShowCheckedModeBanner: false,
+    print('--${MediaQuery.of(context).size}');
+    return ScreenUtilInit(
+      designSize: const Size(375, 812), // 基准宽度 375px，高度 812px（iPhone 13）
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return GetMaterialApp(
+          title: 'SiM',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            useMaterial3: true,
+          ),
+          initialBinding: InitialBinding(),
+          initialRoute: AppPages.INITIAL,
+          getPages: AppPages.routes,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }
