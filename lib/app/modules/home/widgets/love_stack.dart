@@ -341,7 +341,7 @@ class LoveStackState extends State<LoveStack>
             width: 80,
             height: 50,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), // ✅ 圆角 50
+              borderRadius: BorderRadius.circular(50),
               color: Colors.white,
             ),
             child: Icon(
@@ -354,7 +354,7 @@ class LoveStackState extends State<LoveStack>
             width: 80,
             height: 50,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), // ✅ 圆角 50
+              borderRadius: BorderRadius.circular(50),
               color: Colors.white,
             ),
             child: Icon(Icons.favorite, size: 30, color: Colors.pink),

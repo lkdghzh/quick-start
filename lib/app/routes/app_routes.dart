@@ -5,4 +5,6 @@ abstract class Routes {
   static const HOME = '/home';
   static const MESSAGES = '/messages';
   static const PROFILE = '/profile';
+  static const CHAT_LIST = '/chat/list';
+  static const CHAT_DETAIL = '/chat/detail';
 }

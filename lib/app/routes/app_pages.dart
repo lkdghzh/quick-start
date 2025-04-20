@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
-import '../bindings/home_binding.dart';
-import '../bindings/messages_binding.dart';
-import '../bindings/profile_binding.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/messages/bindings/messages_binding.dart';
+import '../modules/profile/binding.dart';
 import '../modules/home/home_view.dart';
 import '../modules/messages/messages_view.dart';
-import '../modules/profile/profile_view.dart';
+import '../modules/profile/view.dart';
+import '../modules/chat/views/chat_list_view.dart';
+import '../modules/chat/views/chat_detail_view.dart';
+import '../modules/chat/bindings/chat_binding.dart';
 
 part 'app_routes.dart';
 
@@ -31,6 +34,16 @@ class AppPages {
       page: () => const ProfileView(),
       binding: ProfileBinding(),
       transition: Transition.fade,
+    ),
+    GetPage(
+      name: Routes.CHAT_LIST,
+      page: () => const ChatListView(),
+      binding: ChatBinding(),
+    ),
+    GetPage(
+      name: Routes.CHAT_DETAIL,
+      page: () => const ChatDetailView(),
+      binding: ChatDetailBinding(),
     ),
   ];
 }
