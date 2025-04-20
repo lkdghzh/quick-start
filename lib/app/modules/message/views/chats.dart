@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../widgets/layout/view.dart';
-import '../controllers/chat_list_controller.dart';
+import '../controllers/chats_controller.dart';
 
-class ChatListView extends GetView<ChatListController> {
-  const ChatListView({super.key});
+class ChatsView extends GetView<ChatListController> {
+  const ChatsView({super.key});
 
   @override
   Widget build(BuildContext context) {

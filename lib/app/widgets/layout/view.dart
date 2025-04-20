@@ -41,7 +41,7 @@ class BaseLayout extends GetView<NavigationController> {
               activeIcon: Icon(Icons.favorite),
               label: '对我心动',
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.message), label: '消息'),
+            BottomNavigationBarItem(icon: Icon(Icons.message), label: '测试'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
           ],
         ),

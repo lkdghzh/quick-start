@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/chat_detail_controller.dart';
+import '../controllers/chat_controller.dart';
 
 class ChatDetailView extends GetView<ChatDetailController> {
   const ChatDetailView({Key? key}) : super(key: key);

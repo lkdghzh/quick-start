@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/messages/bindings/messages_binding.dart';
+import '../modules/test/bindings/messages_binding.dart';
 import '../modules/profile/binding.dart';
 import '../modules/home/home_view.dart';
-import '../modules/messages/messages_view.dart';
+import '../modules/test/messages_view.dart';
 import '../modules/profile/view.dart';
-import '../modules/chat/views/chat_list_view.dart';
-import '../modules/chat/views/chat_detail_view.dart';
-import '../modules/chat/bindings/chat_binding.dart';
+import '../modules/message/views/chats.dart';
+import '../modules/message/views/chat.dart';
+import '../modules/message/bindings/chat_binding.dart';
 
 part 'names.dart';
 
@@ -37,7 +37,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.CHAT_LIST,
-      page: () => const ChatListView(),
+      page: () => const ChatsView(),
       binding: ChatBinding(),
     ),
     GetPage(
