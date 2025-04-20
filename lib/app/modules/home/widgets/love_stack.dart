@@ -182,8 +182,8 @@ class LoveStackState extends State<LoveStack>
         )
         : Image.asset(
           data.imagePath,
-          width: 350,
-          height: 500,
+          width: cardStyle.width,
+          height: cardStyle.height,
           fit: BoxFit.cover,
         );
   }
