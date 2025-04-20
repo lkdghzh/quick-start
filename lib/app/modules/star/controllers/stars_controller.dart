@@ -1,146 +1,180 @@
-import 'package:get/get.dart';
+import "package:get/get.dart";
+import "../../../routes/routes.dart";
 
-class ChatListMessage {
-  final String id;
-  final String name;
-  final String avatar;
-  final String lastMessage;
-  final String time;
-  final int unreadCount;
+class User {
+  String? id;
+  String? name;
+  String? job;
+  String? location;
+  String? marriage;
+  String? gender;
+  String? age;
+  String? avatar;
 
-  ChatListMessage({
-    required this.id,
-    required this.name,
-    required this.avatar,
-    required this.lastMessage,
-    required this.time,
-    required this.unreadCount,
+  User({
+    this.id,
+    this.name,
+    this.job,
+    this.location,
+    this.marriage,
+    this.gender,
+    this.age,
+    this.avatar,
   });
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'avatar': avatar,
-    'lastMessage': lastMessage,
-    'time': time,
-    'unreadCount': unreadCount,
-  };
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    job = json['job'];
+    location = json['location'];
+    marriage = json['marriage'];
+    gender = json['gender'];
+    age = json['age'];
+    avatar = json['avatar'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = id;
+    data['name'] = name;
+    data['job'] = job;
+    data['location'] = location;
+    data['marriage'] = marriage;
+    data['gender'] = gender;
+    data['age'] = age;
+    data['avatar'] = avatar;
+    return data;
+  }
 }
 
 class StarsController extends GetxController {
-  final RxList<ChatListMessage> chatList = <ChatListMessage>[].obs;
+  final RxList<User> users = <User>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     // 模拟数据
-    chatList.addAll([
-      ChatListMessage(
-        id: '1',
-        name: '文静女孩11',
+    users.addAll([
+      User(
+        id: "1",
+        name: "爱自由，爱追寻",
+        job: "软件工程师",
+        location: "在北京",
+        marriage: "未婚",
+        gender: "女",
+        age: "28岁",
         avatar:
-            'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg',
-        lastMessage: '你好，很高兴认识你',
-        time: '12:30',
-        unreadCount: 2,
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '2',
-        name: '慢慢进步2',
+      User(
+        id: "2",
+        name: "一生不羁爱自由",
+        job: "金融分析师",
+        location: "在北京",
+        marriage: "未婚",
+        gender: "女",
+        age: "34岁",
         avatar:
-            'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
-        lastMessage: '最近在忙什么呢？',
-        time: '昨天',
-        unreadCount: 0,
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "3",
+        name: "想法太多的名称",
+        job: "程序员",
+        location: "在北京",
+        marriage: "未婚",
+        gender: "女",
+        age: "18岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "4",
+        name: "春雨的宇宙",
+        job: "学生",
+        location: "在北京",
+        marriage: "未婚",
+        gender: "女",
+        age: "21岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "5",
+        name: "追梦人",
+        job: "产品经理",
+        location: "在上海",
+        marriage: "未婚",
+        gender: "女",
+        age: "26岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "6",
+        name: "星空漫步",
+        job: "UI设计师",
+        location: "在广州",
+        marriage: "未婚",
+        gender: "女",
+        age: "25岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "7",
+        name: "微风细雨",
+        job: "教师",
+        location: "在深圳",
+        marriage: "未婚",
+        gender: "女",
+        age: "27岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "8",
+        name: "晨曦初露",
+        job: "医生",
+        location: "在成都",
+        marriage: "未婚",
+        gender: "女",
+        age: "29岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "9",
+        name: "云端漫步",
+        job: "律师",
+        location: "在杭州",
+        marriage: "未婚",
+        gender: "女",
+        age: "31岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
-      ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
-      ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
-      ),
-      ChatListMessage(
-        id: '3',
-        name: '可爱一点4',
-        avatar: 'assets/girl2.png',
-        lastMessage: '周末有空吗？',
-        time: '星期一',
-        unreadCount: 1,
+      User(
+        id: "10",
+        name: "静水流深",
+        job: "会计师",
+        location: "在武汉",
+        marriage: "未婚",
+        gender: "女",
+        age: "24岁",
+        avatar:
+            "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
       ),
     ]);
+  }
+
+  void viewDetails(int index) {
+    final user = users[index];
+    Get.toNamed("/user/details", arguments: user.toJson());
+  }
+
+  void sendGreeting(int index) {
+    final user = users[index];
+    Get.toNamed(Routes.CHAT_DETAIL, arguments: {"userId": user.id});
   }
 }

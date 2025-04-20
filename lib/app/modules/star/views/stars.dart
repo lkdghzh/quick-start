@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../widgets/layout/view.dart';
+import 'package:getx_demo/app/widgets/layout/view.dart';
 import '../controllers/stars_controller.dart';
 
 class StarsView extends GetView<StarsController> {
@@ -10,125 +10,139 @@ class StarsView extends GetView<StarsController> {
   Widget build(BuildContext context) {
     return BaseLayout(
       title: '对我心动',
-      body: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(
-        //     '消息',
-        //     style: TextStyle(
-        //       color: Colors.black87,
-        //       fontSize: 20,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //   ),
-        //   backgroundColor: Colors.white,
-        //   elevation: 0.5,
-        //   centerTitle: true,
-        // ),
-        body: Obx(
-          () => ListView.builder(
-            itemCount: controller.chatList.length,
-            itemBuilder: (context, index) {
-              final chat = controller.chatList[index];
-              return InkWell(
-                onTap:
-                    () => Get.toNamed('/chat/detail', arguments: chat.toJson()),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Row(
-                    children: [
-                      // 头像
-                      Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child:
-                                chat.avatar.contains('http')
-                                    ? Image.network(
-                                      chat.avatar,
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover,
-                                    )
-                                    : Image.asset(
-                                      chat.avatar,
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover,
-                                    ),
-                          ),
-                          if (chat.unreadCount > 0)
-                            Positioned(
-                              right: 0,
-                              top: 0,
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
-                                ),
-                                constraints: BoxConstraints(
-                                  minWidth: 18,
-                                  minHeight: 18,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '${chat.unreadCount}',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      SizedBox(width: 12),
-                      // 聊天信息
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  chat.name,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  chat.time,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              chat.lastMessage,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey[600],
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+      body: Obx(
+        () => ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: controller.users.length,
+          itemBuilder: (context, index) {
+            final user = controller.users[index];
+            return _buildUserCard(user, index);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUserCard(User user, int index) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors:
+                index % 4 == 0
+                    ? [Color(0xFFE6D5DC), Color(0xFFD5DCEE)]
+                    : index % 4 == 1
+                    ? [Color(0xFFD5DCEE), Color(0xFFF2F2E6)]
+                    : index % 4 == 2
+                    ? [Color(0xFFE6D5DC), Color(0xFFFFE6E6)]
+                    : [Color(0xFFE6F2EC), Color(0xFFE6F2EC)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              _buildAvatar(user),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildUserInfo(user),
+                    const SizedBox(height: 8),
+                    _buildUserDetails(user),
+                    const SizedBox(height: 8),
+                    _buildActionButtons(index),
+                  ],
                 ),
-              );
-            },
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildAvatar(User user) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+      child: Center(
+        child:
+            user.avatar != null && user.avatar!.isNotEmpty
+                ? user.avatar!.contains('http')
+                    ? Image.network(
+                      user.avatar!,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    )
+                    : Image.asset(
+                      user.avatar!,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    )
+                : Text('头像', style: TextStyle(color: Colors.black54)),
+      ),
+    );
+  }
+
+  Widget _buildUserInfo(User user) {
+    return Row(
+      children: [
+        Text(
+          user.name ?? '',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(width: 8),
+        Text(user.job ?? '', style: TextStyle(color: Colors.black54)),
+      ],
+    );
+  }
+
+  Widget _buildUserDetails(User user) {
+    return Row(
+      children: [
+        Text(user.location ?? ''),
+        const SizedBox(width: 16),
+        Text(user.marriage ?? ''),
+        const SizedBox(width: 16),
+        Text(user.gender ?? ''),
+        const SizedBox(width: 16),
+        Text(user.age ?? ''),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons(int index) {
+    return Row(
+      children: [
+        TextButton(
+          onPressed: () => controller.viewDetails(index),
+          child: Text('详细资料'),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            minimumSize: Size(0, 0),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+        const Spacer(),
+        TextButton(
+          onPressed: () => controller.sendGreeting(index),
+          child: Text('打个招呼'),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            minimumSize: Size(0, 0),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+      ],
     );
   }
 }
