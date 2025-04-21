@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1024" height="1024" fill="#FFE6D5DC"/>
-    <path d="M512 813.63c-11.43 0-22.86-4.38-31.59-13.11L183.7 503.81c-87.75-87.75-87.75-230.55 0-318.3 42.51-42.51 99-65.94 159.15-65.94s116.64 23.43 159.15 65.94L512 195.51l10-10c87.75-87.75 230.55-87.75 318.3 0 87.75 87.75 87.75 230.55 0 318.3L543.59 800.52c-8.73 8.73-20.16 13.11-31.59 13.11z" fill="#FF69B4"/>
+    <!-- 背景圆形 -->
+    <circle cx="512" cy="512" r="512" fill="#1A1A1A"/>
+    
+    <!-- 内部渐变圆形 -->
+    <circle cx="512" cy="512" r="480" fill="url(#gradient)"/>
+    
+    <!-- WM 文字 -->
+    <path d="M280 352L360 672L440 422L520 672L600 352M680 352L760 672" 
+          stroke="white" 
+          stroke-width="48" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- 装饰线条 -->
+    <circle cx="512" cy="512" r="400" 
+            stroke="rgba(255,255,255,0.1)" 
+            stroke-width="2" 
+            stroke-dasharray="4,4"/>
+            
+    <!-- 渐变定义 -->
+    <defs>
+        <linearGradient id="gradient" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" style="stop-color:#2A2A2A"/>
+            <stop offset="100%" style="stop-color:#1A1A1A"/>
+        </linearGradient>
+    </defs>
 </svg> 

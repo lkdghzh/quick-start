@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_demo/app/widgets/layout/view.dart';
+import '../../../widgets/layout/view.dart' show BaseLayout;
 import '../controllers/stars_controller.dart';
 
 class StarsView extends GetView<StarsController> {
