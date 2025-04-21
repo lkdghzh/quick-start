@@ -4,42 +4,45 @@
     <rect x="14" y="14" width="80" height="80" 
           fill="url(#bgGradient)"/>
     
-    <!-- WM 文字 (性感设计) -->
-    <g transform="translate(15, 30) scale(0.195)">
-        <!-- W (完全倒置的M, 1.69倍大) -->
-        <g transform="translate(0, 40) scale(1.69)">
-            <path d="M0 0
-                    C 20 140, 30 160, 40 120
-                    S 60 20, 80 0
-                    C 100 140, 110 160, 120 120
-                    S 140 20, 160 0" 
-                  stroke="#FFFFFF" 
-                  stroke-width="24"
-                  stroke-linecap="round"
-                  fill="none">
-                <animate attributeName="stroke-width"
-                         values="24;32;24"
-                         dur="2s"
-                         repeatCount="indefinite"/>
-                <animate attributeName="opacity"
-                         values="0.95;1;0.95"
-                         dur="2s"
-                         repeatCount="indefinite"/>
-            </path>
-        </g>
-        
-        <!-- M -->
-        <path d="M220 180
-                C 240 40, 250 20, 260 60
-                S 280 160, 300 180
-                C 320 40, 330 20, 340 60
-                S 360 160, 380 180" 
-              stroke="url(#textGradient)" 
-              stroke-width="28"
+    <!-- W -->
+    <g transform="translate(28, 44) scale(0.18)">
+        <path d="M0 0
+                C 20 140, 30 160, 40 120
+                S 60 20, 80 0
+                C 100 140, 110 160, 120 120
+                S 140 20, 160 0" 
+              stroke="#FFFFFF" 
+              stroke-width="32"
               stroke-linecap="round"
               fill="none">
             <animate attributeName="stroke-width"
-                     values="28;32;28"
+                     values="32;40;32"
+                     dur="2s"
+                     repeatCount="indefinite"/>
+            <animate attributeName="opacity"
+                     values="0.95;1;0.95"
+                     dur="2s"
+                     repeatCount="indefinite"/>
+        </path>
+    </g>
+    
+    <!-- M -->
+    <g transform="translate(58, 44) scale(0.14)">
+        <path d="M0 180
+                C 20 40, 30 20, 40 60
+                S 60 160, 80 180
+                C 100 40, 110 20, 120 60
+                S 140 160, 160 180" 
+              stroke="url(#textGradient)" 
+              stroke-width="32"
+              stroke-linecap="round"
+              fill="none">
+            <animate attributeName="stroke-width"
+                     values="32;40;32"
+                     dur="3s"
+                     repeatCount="indefinite"/>
+            <animate attributeName="opacity"
+                     values="0.8;1;0.8"
                      dur="3s"
                      repeatCount="indefinite"/>
         </path>
@@ -101,10 +104,12 @@
             <stop offset="100%" style="stop-color:#FF3366"/>
         </linearGradient>
 
-        <linearGradient id="textGradient" x1="0" y1="40" x2="380" y2="180" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" style="stop-color:#FFFFFF"/>
-            <stop offset="50%" style="stop-color:#FAFAFA"/>
-            <stop offset="100%" style="stop-color:#F5F5F5"/>
+        <linearGradient id="textGradient" x1="0" y1="40" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.4"/>
+            <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:0.8"/>
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.4"/>
+            <animate attributeName="x1" values="0;160;0" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="160;320;160" dur="3s" repeatCount="indefinite"/>
         </linearGradient>
 
         <linearGradient id="heartGradient" x1="50" y1="50" x2="450" y2="420" gradientUnits="userSpaceOnUse">
