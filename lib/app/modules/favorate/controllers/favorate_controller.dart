@@ -47,7 +47,7 @@ class User {
   }
 }
 
-class StarsController extends GetxController {
+class FavorateController extends GetxController {
   final RxList<User> users = <User>[].obs;
 
   @override

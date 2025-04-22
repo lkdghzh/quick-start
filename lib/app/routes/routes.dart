@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/star/bindings/stars_binding.dart';
-import '../modules/star/views/stars.dart';
+import '../modules/favorate/bindings/stars_binding.dart';
+import '../modules/favorate/views/favorate.dart';
 import '../modules/test/bindings/messages_binding.dart';
 import '../modules/profile/binding.dart';
 import '../modules/home/home_view.dart';
@@ -26,8 +26,8 @@ class AppPages {
       transition: Transition.fade,
     ),
     GetPage(
-      name: Routes.STARS,
-      page: () => const StarsView(),
+      name: Routes.FAVORATE,
+      page: () => const FavorateView(),
       binding: StarsBinding(),
       transition: Transition.fade,
     ),

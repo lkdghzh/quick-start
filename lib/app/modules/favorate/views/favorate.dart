@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../widgets/layout/view.dart' show BaseLayout;
-import '../controllers/stars_controller.dart';
+import '../controllers/favorate_controller.dart';
 
-class StarsView extends GetView<StarsController> {
-  const StarsView({super.key});
+class FavorateView extends GetView<FavorateController> {
+  const FavorateView({super.key});
 
   @override
   Widget build(BuildContext context) {

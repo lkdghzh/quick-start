@@ -11,7 +11,7 @@ class NavigationController extends GetxController {
         Get.offNamed(Routes.HOME);
         break;
       case 1:
-        Get.offNamed(Routes.STARS);
+        Get.offNamed(Routes.FAVORATE);
         break;
       case 2:
         Get.offNamed(Routes.CHAT_LIST);
