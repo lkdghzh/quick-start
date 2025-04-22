@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes.dart';
+import '../../../models/user.dart';
+import '../../../widgets/image.dart';
 
 class LoveStack extends StatefulWidget {
   const LoveStack({super.key});
@@ -14,18 +16,59 @@ class LoveStack extends StatefulWidget {
 
 class LoveStackState extends State<LoveStack>
     with SingleTickerProviderStateMixin {
-  List<UserCardData> cards = [
-    UserCardData("慢慢进步3", "assets/girl1.png"),
-    UserCardData(
-      "文静女孩11",
-      "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
+  List<User> cards = [
+    User(
+      id: "1",
+      name: "慢慢进步3",
+      job: "播音主持",
+      location: "在北京",
+      marriage: "未婚",
+      gender: "女",
+      age: "24岁",
+      avatar: "assets/girl1.png",
     ),
-    UserCardData(
-      "慢慢进步2",
-      "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+    User(
+      id: "2",
+      name: "文静女孩11",
+      job: "设计师",
+      location: "在上海",
+      marriage: "未婚",
+      gender: "女",
+      age: "25岁",
+      avatar:
+          "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg",
     ),
-    UserCardData("可爱一点4", "assets/girl2.png"),
-    UserCardData("努力工作5", "assets/girl3.png"),
+    User(
+      id: "3",
+      name: "慢慢进步2",
+      job: "产品经理",
+      location: "在广州",
+      marriage: "未婚",
+      gender: "女",
+      age: "26岁",
+      avatar:
+          "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+    ),
+    User(
+      id: "4",
+      name: "可爱一点4",
+      job: "教师",
+      location: "在深圳",
+      marriage: "未婚",
+      gender: "女",
+      age: "23岁",
+      avatar: "assets/girl2.png",
+    ),
+    User(
+      id: "5",
+      name: "努力工作5",
+      job: "医生",
+      location: "在成都",
+      marriage: "未婚",
+      gender: "女",
+      age: "27岁",
+      avatar: "assets/girl3.png",
+    ),
   ];
 
   Offset cardOffset = Offset.zero;
@@ -81,7 +124,7 @@ class LoveStackState extends State<LoveStack>
   List<Widget> buildCards(int visibleCardCount) {
     return cards.asMap().entries.toList().reversed.map((entry) {
       int index = entry.key;
-      UserCardData data = entry.value;
+      User data = entry.value;
 
       // 只显示前3张卡片（提高性能）
       if (index >= visibleCardCount) return Container();
@@ -110,7 +153,7 @@ class LoveStackState extends State<LoveStack>
   }
 
   // 第一张卡片
-  GestureDetector buildTopCard(UserCardData data) {
+  GestureDetector buildTopCard(User data) {
     return GestureDetector(
       onPanUpdate: (details) {
         setState(() {
@@ -142,7 +185,7 @@ class LoveStackState extends State<LoveStack>
 
   // 卡片
   Widget buildCard(
-    UserCardData data, {
+    User data, {
     Offset offset = Offset.zero,
     double rotate = 0,
     double scale = 1.0,
@@ -174,22 +217,12 @@ class LoveStackState extends State<LoveStack>
   }
 
   // 卡片图片
-  Widget buildIMG(data) {
-    return data.imagePath.contains('http')
-        ? CachedNetworkImage(
-          imageUrl: data.imagePath,
-          width: cardStyle.width,
-          height: cardStyle.height,
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(color: Colors.grey[300]),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        )
-        : Image.asset(
-          data.imagePath,
-          width: cardStyle.width,
-          height: cardStyle.height,
-          fit: BoxFit.cover,
-        );
+  Widget buildIMG(User data) {
+    return CommonImage(
+      imageUrl: data.avatar,
+      width: cardStyle.width,
+      height: cardStyle.height,
+    );
   }
 
   // 底部样式
@@ -221,16 +254,16 @@ class LoveStackState extends State<LoveStack>
   }
 
   // 卡片信息
-  Positioned buildInfo(UserCardData data) {
+  Positioned buildInfo(User data) {
     return Positioned(
       bottom: 120.h,
       left: 15.w,
-      right: 15.w, // 添加right约束以便更好地控制布局
+      right: 15.w,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            data.name,
+            data.name ?? '',
             style: TextStyle(
               color: Colors.white,
               fontSize: 28.sp,
@@ -240,7 +273,11 @@ class LoveStackState extends State<LoveStack>
           SizedBox(height: 2.h),
 
           Text(
-            ['播音主持', '文化', '传媒'].join(' · '),
+            [
+              data.job ?? '',
+              data.location ?? '',
+              data.marriage ?? '',
+            ].join(' · '),
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.sp,
@@ -261,7 +298,7 @@ class LoveStackState extends State<LoveStack>
                   color: Colors.pink,
                 ),
                 child: Text(
-                  '24',
+                  data.age ?? '',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -291,11 +328,11 @@ class LoveStackState extends State<LoveStack>
                   InkWell(
                     onTap: () {
                       Get.toNamed(
-                        '/chat/detail',
+                        Routes.CHAT_DETAIL,
                         arguments: {
-                          'id': '1',
+                          'id': data.id,
                           'name': data.name,
-                          'avatar': data.imagePath,
+                          'avatar': data.avatar,
                         },
                       );
                     },
@@ -321,17 +358,17 @@ class LoveStackState extends State<LoveStack>
                       Get.toNamed(
                         Routes.USER,
                         arguments: {
+                          'id': data.id,
                           'name': data.name,
-                          'avatar': '', //data.imagePath
-                          'age': '24岁',
-                          'gender': '女',
-                          'location': '在北京',
-                          'job': '播音主持',
-                          'marriage': '未婚',
+                          'avatar': data.avatar,
+                          'age': data.age,
+                          'gender': data.gender,
+                          'location': data.location,
+                          'job': data.job,
+                          'marriage': data.marriage,
                           'bio': '喜欢旅行、摄影、美食，希望能遇到一个有趣的灵魂～',
-                          'interests': ['播音主持', '文化', '传媒', '旅行', '摄影'],
+                          'interests': [data.job ?? '', '旅行', '摄影', '美食', '电影'],
                           'photos': [
-                            // data.imagePath,
                             'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
                             'https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg',
                           ],
@@ -469,11 +506,4 @@ class LoveStackState extends State<LoveStack>
       _initAnimation();
     });
   }
-}
-
-class UserCardData {
-  final String name;
-  final String imagePath;
-
-  UserCardData(this.name, this.imagePath);
 }

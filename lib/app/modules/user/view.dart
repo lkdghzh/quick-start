@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'controller.dart';
+import '../../widgets/image.dart';
 
 class UserPage extends GetView<UserController> {
   const UserPage({super.key});
@@ -36,10 +37,11 @@ class UserPage extends GetView<UserController> {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         background: Obx(
-          () =>
-              controller.state.avatar.isNotEmpty
-                  ? Image.network(controller.state.avatar, fit: BoxFit.cover)
-                  : Container(color: Colors.grey[300]),
+          () => CommonImage(
+            imageUrl: controller.state.avatar,
+            width: double.infinity,
+            height: double.infinity,
+          ),
         ),
       ),
       leading: IconButton(
@@ -169,12 +171,9 @@ class UserPage extends GetView<UserController> {
               ),
               itemCount: controller.state.photos.length,
               itemBuilder: (context, index) {
-                return ClipRRect(
+                return CommonImage(
+                  imageUrl: controller.state.photos[index],
                   borderRadius: BorderRadius.circular(8.r),
-                  child: Image.network(
-                    controller.state.photos[index],
-                    fit: BoxFit.cover,
-                  ),
                 );
               },
             ),

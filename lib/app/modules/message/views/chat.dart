@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/chat_controller.dart';
+import '../../../widgets/image.dart';
 
 class ChatDetailView extends GetView<ChatDetailController> {
   const ChatDetailView({super.key});
@@ -125,9 +126,12 @@ class ChatDetailView extends GetView<ChatDetailController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!message.isSender) ...[
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage(Get.arguments['avatar'] as String),
+            ClipOval(
+              child: CommonImage(
+                imageUrl: Get.arguments['avatar'] as String,
+                width: 32,
+                height: 32,
+              ),
             ),
             SizedBox(width: 8),
           ],
@@ -146,13 +150,10 @@ class ChatDetailView extends GetView<ChatDetailController> {
                 ),
                 child:
                     message.image != null
-                        ? ClipRRect(
+                        ? CommonImage(
+                          imageUrl: message.image,
+                          width: 200,
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            message.image!,
-                            width: 200,
-                            fit: BoxFit.cover,
-                          ),
                         )
                         : Text(
                           message.message,
@@ -174,9 +175,13 @@ class ChatDetailView extends GetView<ChatDetailController> {
           ),
           if (message.isSender) ...[
             SizedBox(width: 8),
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: Colors.grey[200],
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                shape: BoxShape.circle,
+              ),
               child: Icon(Icons.person, color: Colors.grey[400], size: 20),
             ),
           ],

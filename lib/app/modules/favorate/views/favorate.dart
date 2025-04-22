@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../models/user.dart';
 import '../../../widgets/layout/view.dart' show BaseLayout;
+import '../../../widgets/image.dart';
 import '../controllers/favorate_controller.dart';
 
 class FavorateView extends GetView<FavorateController> {
@@ -73,23 +74,8 @@ class FavorateView extends GetView<FavorateController> {
       width: 80,
       height: 80,
       decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-      child: Center(
-        child:
-            user.avatar != null && user.avatar!.isNotEmpty
-                ? user.avatar!.contains('http')
-                    ? Image.network(
-                      user.avatar!,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    )
-                    : Image.asset(
-                      user.avatar!,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    )
-                : Text('头像', style: TextStyle(color: Colors.black54)),
+      child: ClipOval(
+        child: CommonImage(imageUrl: user.avatar, width: 80, height: 80),
       ),
     );
   }
@@ -126,22 +112,22 @@ class FavorateView extends GetView<FavorateController> {
       children: [
         TextButton(
           onPressed: () => controller.viewDetails(index),
-          child: Text('详细资料'),
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
             minimumSize: Size(0, 0),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
+          child: Text('详细资料'),
         ),
         const Spacer(),
         TextButton(
           onPressed: () => controller.sendGreeting(index),
-          child: Text('打个招呼'),
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
             minimumSize: Size(0, 0),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
+          child: Text('打个招呼'),
         ),
       ],
     );
