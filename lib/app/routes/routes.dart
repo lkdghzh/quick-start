@@ -10,6 +10,8 @@ import '../modules/profile/view.dart';
 import '../modules/message/views/chats.dart';
 import '../modules/message/views/chat.dart';
 import '../modules/message/bindings/chat_binding.dart';
+import '../modules/user/bindings.dart';
+import '../modules/user/view.dart';
 
 part 'names.dart';
 
@@ -29,6 +31,12 @@ class AppPages {
       name: Routes.FAVORATE,
       page: () => const FavorateView(),
       binding: StarsBinding(),
+      transition: Transition.fade,
+    ),
+    GetPage(
+      name: Routes.USER,
+      page: () => const UserPage(),
+      binding: UserBinding(),
       transition: Transition.fade,
     ),
     GetPage(
