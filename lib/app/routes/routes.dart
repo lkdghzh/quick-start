@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/favorate/bindings/stars_binding.dart';
+import '../modules/favorate/bindings/favorate_binding.dart';
 import '../modules/favorate/views/favorate.dart';
 import '../modules/test/bindings/messages_binding.dart';
 import '../modules/profile/binding.dart';
