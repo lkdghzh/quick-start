@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../models/user.dart';
 import '../../../widgets/layout/view.dart' show BaseLayout;
 import '../controllers/favorate_controller.dart';
 
