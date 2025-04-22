@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/routes.dart';
+
 class LoveStack extends StatefulWidget {
   const LoveStack({super.key});
 
@@ -313,21 +315,45 @@ class LoveStackState extends State<LoveStack>
                     ),
                   ),
                   SizedBox(width: 8.w),
-                  Container(
-                    height: 30.h,
-                    constraints: BoxConstraints(minWidth: 80.w),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5.r)),
-                      color: const Color.fromARGB(255, 84, 81, 81),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: Text(
-                        '查看资料',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: () {
+                      print('查看资料');
+                      Get.toNamed(
+                        Routes.USER,
+                        arguments: {
+                          'name': data.name,
+                          'avatar': '', //data.imagePath
+                          'age': '24岁',
+                          'gender': '女',
+                          'location': '在北京',
+                          'job': '播音主持',
+                          'marriage': '未婚',
+                          'bio': '喜欢旅行、摄影、美食，希望能遇到一个有趣的灵魂～',
+                          'interests': ['播音主持', '文化', '传媒', '旅行', '摄影'],
+                          'photos': [
+                            // data.imagePath,
+                            'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
+                            'https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg',
+                          ],
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 30.h,
+                      constraints: BoxConstraints(minWidth: 80.w),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5.r)),
+                        color: const Color.fromARGB(255, 84, 81, 81),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: Text(
+                          '查看资料',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),

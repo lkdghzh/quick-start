@@ -35,6 +35,7 @@ class BaseLayout extends GetView<NavigationController> {
               label: '聊天',
             ),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'xx'),
             // BottomNavigationBarItem(icon: Icon(Icons.message), label: 'test'),
           ],
         ),

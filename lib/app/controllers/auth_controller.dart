@@ -30,7 +30,7 @@ class AuthController extends GetxController {
 
       return true;
     } catch (e) {
-      print('Login error: $e');
+      // print('Login error: $e');
       return false;
     } finally {
       isLoading.value = false;

@@ -20,7 +20,7 @@ class NavigationController extends GetxController {
         Get.offNamed(Routes.PROFILE);
         break;
       case 4:
-        Get.offNamed(Routes.MESSAGES);
+        Get.offNamed(Routes.USER);
         break;
     }
   }
