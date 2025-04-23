@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 import '../../../routes/routes.dart';
 import '../../../models/user.dart';
 import '../../../widgets/image.dart';
+import '../../../modules/user/view.dart';
+import '../../../modules/user/controller.dart';
+import '../../user/bindings.dart';
 
 class LoveStack extends StatefulWidget {
   const LoveStack({super.key});
@@ -355,24 +358,30 @@ class LoveStackState extends State<LoveStack>
                   InkWell(
                     onTap: () {
                       print('查看资料');
-                      Get.toNamed(
-                        Routes.USER,
-                        arguments: {
-                          'id': data.id,
-                          'name': data.name,
-                          'avatar': data.avatar,
-                          'age': data.age,
-                          'gender': data.gender,
-                          'location': data.location,
-                          'job': data.job,
-                          'marriage': data.marriage,
-                          'bio': '喜欢旅行、摄影、美食，希望能遇到一个有趣的灵魂～',
-                          'interests': [data.job ?? '', '旅行', '摄影', '美食', '电影'],
-                          'photos': [
-                            'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
-                            'https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg',
-                          ],
-                        },
+                      final args = {
+                        'id': data.id,
+                        'name': data.name,
+                        'avatar': data.avatar,
+                        'age': data.age,
+                        'gender': data.gender,
+                        'location': data.location,
+                        'job': data.job,
+                        'marriage': data.marriage,
+                        'bio': '喜欢旅行、摄影、美食，希望能遇到一个有趣的灵魂～',
+                        'interests': [data.job ?? '', '旅行', '摄影', '美食', '电影'],
+                        'photos': [
+                          'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
+                          'https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg',
+                        ],
+                      };
+
+                      Get.to(
+                        () => const UserPage(),
+                        arguments: args,
+                        opaque: false,
+                        fullscreenDialog: true,
+                        binding: UserBinding(),
+                        // transition: Transition.topLevel,
                       );
                     },
                     child: Container(
