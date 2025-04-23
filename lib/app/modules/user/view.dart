@@ -3,31 +3,34 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'controller.dart';
 import '../../widgets/image.dart';
+import 'widgets/swipeable_card.dart';
 
 class UserPage extends GetView<UserController> {
   const UserPage({super.key});
   @override
   Widget build(BuildContext context) {
-    print('aaa');
-
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _buildSliverAppBar(),
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildUserInfo(),
-                _buildBio(),
-                _buildInterests(),
-                _buildPhotoGallery(),
-              ],
+    return SwipeableCard(
+      onLike: controller.handleLike,
+      onDislike: () => Get.back(),
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            _buildSliverAppBar(),
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildUserInfo(),
+                  _buildBio(),
+                  _buildInterests(),
+                  _buildPhotoGallery(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        bottomNavigationBar: _buildBottomBar(),
       ),
-      bottomNavigationBar: _buildBottomBar(),
     );
   }
 
