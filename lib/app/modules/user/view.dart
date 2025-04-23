@@ -40,10 +40,13 @@ class UserPage extends GetView<UserController> {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         background: Obx(
-          () => CommonImage(
-            imageUrl: controller.state.avatar,
-            width: double.infinity,
-            height: double.infinity,
+          () => Hero(
+            tag: 'user-avatar-${Get.arguments['id']}',
+            child: CommonImage(
+              imageUrl: controller.state.avatar,
+              width: double.infinity,
+              height: double.infinity,
+            ),
           ),
         ),
       ),

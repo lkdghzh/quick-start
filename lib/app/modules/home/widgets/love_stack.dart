@@ -221,10 +221,13 @@ class LoveStackState extends State<LoveStack>
 
   // 卡片图片
   Widget buildIMG(User data) {
-    return CommonImage(
-      imageUrl: data.avatar,
-      width: cardStyle.width,
-      height: cardStyle.height,
+    return Hero(
+      tag: 'user-avatar-${data.id}',
+      child: CommonImage(
+        imageUrl: data.avatar,
+        width: cardStyle.width,
+        height: cardStyle.height,
+      ),
     );
   }
 
