@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:woome/app/modules/zone/list/bindings.dart';
+import 'package:woome/app/modules/zone/list/view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/favorate/bindings/favorate_binding.dart';
 import '../modules/favorate/views/favorate.dart';
@@ -40,9 +42,21 @@ class AppPages {
       transition: Transition.fade,
     ),
     GetPage(
-      name: Routes.MESSAGES,
-      page: () => const MessagesView(),
-      binding: MessagesBinding(),
+      name: Routes.Zone,
+      page: () => const ZonePage(),
+      binding: ZoneListBinding(),
+      transition: Transition.fade,
+    ),
+    GetPage(
+      name: Routes.ZONE_USER,
+      page: () => const ZonePage(),
+      binding: ZoneBinding(),
+      transition: Transition.fade,
+    ),
+    GetPage(
+      name: Routes.ZONE_PUB,
+      page: () => const ZonePage(),
+      binding: ZoneBinding(),
       transition: Transition.fade,
     ),
     GetPage(
