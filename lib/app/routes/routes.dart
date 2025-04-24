@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:woome/app/modules/zone/Pub/bindings.dart';
-import 'package:woome/app/modules/zone/Pub/view.dart';
+import 'package:woome/app/modules/zone/create/bindings.dart';
 import 'package:woome/app/modules/zone/detail/bindings.dart';
 import 'package:woome/app/modules/zone/list/bindings.dart';
 import 'package:woome/app/modules/zone/list/view.dart';
@@ -15,6 +14,7 @@ import '../modules/message/views/chat.dart';
 import '../modules/message/bindings/chat_binding.dart';
 import '../modules/user/bindings.dart';
 import '../modules/user/view.dart';
+import '../modules/zone/create/view.dart';
 
 part 'names.dart';
 
@@ -55,9 +55,9 @@ class AppPages {
       transition: Transition.fade,
     ),
     GetPage(
-      name: Routes.ZONE_PUB,
-      page: () => const ZonePubPage(),
-      binding: ZonePubBinding(),
+      name: Routes.ZONE_CREATE,
+      page: () => const ZoneCreatePage(),
+      binding: ZoneCreateBinding(),
       transition: Transition.fade,
     ),
     GetPage(

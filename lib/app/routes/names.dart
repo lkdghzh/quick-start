@@ -8,7 +8,7 @@ abstract class Routes {
 
   static const Zone = '/zone';
   static const ZONE_USER = '/zone/user'; // todo 和user整合
-  static const ZONE_PUB = '/zone/pub';
+  static const ZONE_CREATE = '/zone/create';
 
   static const CHAT_LIST = '/chat/list';
   static const CHAT_DETAIL = '/chat/detail';
