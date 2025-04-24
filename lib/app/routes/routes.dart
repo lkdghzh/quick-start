@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
+import 'package:woome/app/modules/zone/Pub/bindings.dart';
+import 'package:woome/app/modules/zone/Pub/view.dart';
+import 'package:woome/app/modules/zone/detail/bindings.dart';
 import 'package:woome/app/modules/zone/list/bindings.dart';
 import 'package:woome/app/modules/zone/list/view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/favorate/bindings/favorate_binding.dart';
 import '../modules/favorate/views/favorate.dart';
-import '../modules/test/bindings/messages_binding.dart';
 import '../modules/profile/binding.dart';
 import '../modules/home/home_view.dart';
-import '../modules/test/messages_view.dart';
 import '../modules/profile/view.dart';
 import '../modules/message/views/chats.dart';
 import '../modules/message/views/chat.dart';
@@ -50,13 +51,13 @@ class AppPages {
     GetPage(
       name: Routes.ZONE_USER,
       page: () => const ZonePage(),
-      binding: ZoneBinding(),
+      binding: ZoneDetailBinding(),
       transition: Transition.fade,
     ),
     GetPage(
       name: Routes.ZONE_PUB,
-      page: () => const ZonePage(),
-      binding: ZoneBinding(),
+      page: () => const ZonePubPage(),
+      binding: ZonePubBinding(),
       transition: Transition.fade,
     ),
     GetPage(

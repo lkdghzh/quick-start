@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SwipeableCard extends StatefulWidget {
   final Widget child;
@@ -7,11 +6,11 @@ class SwipeableCard extends StatefulWidget {
   final VoidCallback? onDislike;
 
   const SwipeableCard({
-    Key? key,
+    super.key,
     required this.child,
     this.onLike,
     this.onDislike,
-  }) : super(key: key);
+  });
 
   @override
   State<SwipeableCard> createState() => _SwipeableCardState();

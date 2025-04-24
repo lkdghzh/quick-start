@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import '../../../routes/routes.dart';
 import '../../../models/user.dart';
 import '../../../widgets/image.dart';
 import '../../../modules/user/view.dart';
-import '../../../modules/user/controller.dart';
 import '../../user/bindings.dart';
 
 class LoveStack extends StatefulWidget {

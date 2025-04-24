@@ -14,13 +14,13 @@ class NavigationController extends GetxController {
         Get.offNamed(Routes.FAVORATE);
         break;
       case 2:
-        Get.offNamed(Routes.CHAT_LIST);
+        Get.offNamed(Routes.Zone);
         break;
       case 3:
-        Get.offNamed(Routes.PROFILE);
+        Get.offNamed(Routes.CHAT_LIST);
         break;
       case 4:
-        Get.offNamed(Routes.USER);
+        Get.offNamed(Routes.PROFILE);
         break;
     }
   }

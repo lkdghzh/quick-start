@@ -30,6 +30,11 @@ class BaseLayout extends GetView<NavigationController> {
               label: '对我心动',
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.zoom_in_outlined),
+              activeIcon: Icon(Icons.zoom_in),
+              label: '心情',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.message_outlined),
               activeIcon: Icon(Icons.message),
               label: '聊天',

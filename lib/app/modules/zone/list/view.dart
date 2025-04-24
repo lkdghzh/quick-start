@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'controller.dart';
 
 class ZonePage extends GetView<ZoneListController> {
-  const ZonePage({Key? key}) : super(key: key);
+  const ZonePage({super.key});
 
   // 主视图
   Widget _buildView() {
