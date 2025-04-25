@@ -4,7 +4,6 @@
   // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
     {
       "name": "真机",
       "request": "launch",
@@ -19,6 +18,13 @@
       "type": "dart",
       "flutterMode": "debug",
       "deviceId": "iphone"
+    },
+    {
+      "name": "android",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "emulator-5556"
     }
   ]
 }
