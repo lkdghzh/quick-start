@@ -29,7 +29,7 @@ class ZoneListController extends GetxController {
         'avatar': 'https://picsum.photos/200/200?random=1',
         'timeAgo': '13分钟前发布',
         'content': '连的快吗 #蜜桃臀',
-        'imageUrls': ['https://picsum.photos/800/1000?random=1'],
+        'imageUrls': ['https://picsum.photos/375/760?random=1'],
         'likes': 38,
         'comments': 6,
       },
@@ -51,7 +51,7 @@ class ZoneListController extends GetxController {
         'timeAgo': '30分钟前发布',
         'content': '这是第3条动态内容，#朋友圈 #测试',
         'imageUrls': [
-          'https://picsum.photos/500/300?random=6',
+          'https://picsum.photos/500/500?random=6',
           'https://picsum.photos/500/300?random=7',
         ],
         'likes': 25,

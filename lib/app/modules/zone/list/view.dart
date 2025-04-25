@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:woome/app/widgets/layout/view.dart';
 
+import '../../../widgets/image.dart';
 import 'controller.dart';
 
 class ZonePage extends GetView<ZoneListController> {
@@ -202,14 +204,22 @@ class ZonePage extends GetView<ZoneListController> {
                     'comments': comments,
                   }),
               child: Container(
-                height: 200.h,
                 margin: EdgeInsets.only(bottom: 12.h),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.r),
-                  child: Image.network(
-                    imageUrls[0],
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrls[0],
+                    height: 300.h,
+                    width: 200.w,
                     fit: BoxFit.cover,
-                    width: double.infinity,
+                    placeholder:
+                        (context, url) =>
+                            Container(color: Colors.grey[300], height: 200.h),
+                    errorWidget:
+                        (context, url, error) => Container(
+                          color: Colors.grey[300],
+                          child: Icon(Icons.error, color: Colors.grey[400]),
+                        ),
                   ),
                 ),
               ),
@@ -219,7 +229,8 @@ class ZonePage extends GetView<ZoneListController> {
             children: [
               _buildInteractionButton(
                 icon: Icons.message,
-                color: Colors.teal,
+                label: '私聊',
+                color: Colors.black,
                 onTap: () => controller.goToChat(id, username),
               ),
               Spacer(),
@@ -266,7 +277,7 @@ class ZonePage extends GetView<ZoneListController> {
         children: [
           Icon(icon, color: color, size: 20.sp),
           SizedBox(width: 4.w),
-          Text(label, style: TextStyle(color: color, fontSize: 14.sp)),
+          Text(label, style: TextStyle(color: color, fontSize: 12.sp)),
         ],
       ),
     );
