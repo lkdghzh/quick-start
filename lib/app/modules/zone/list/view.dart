@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:woome/app/widgets/layout/view.dart';
 
 import 'controller.dart';
 
@@ -11,13 +12,32 @@ class ZonePage extends GetView<ZoneListController> {
   Widget _buildTabs() {
     return Container(
       color: Colors.white,
-      height: 44.h,
+      height: 50.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildTabItem('关注', false, Get.context!),
-          _buildTabItem('推荐', true, Get.context!),
-          _buildTabItem('北京', false, Get.context!),
+          SizedBox(width: 10.w),
+          Container(
+            child: Text(
+              '关注',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(width: 10.w),
+          Container(
+            child: Text(
+              '推荐',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
           const Spacer(),
           IconButton(
             icon: const Icon(Icons.search, color: Colors.black87),
@@ -56,41 +76,11 @@ class ZonePage extends GetView<ZoneListController> {
     );
   }
 
-  Widget _buildTabItem(String title, bool isSelected, BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: isSelected ? Colors.black : Colors.black54,
-              fontSize: 16.sp,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-          if (isSelected)
-            Container(
-              margin: EdgeInsets.only(top: 4.h),
-              height: 2.h,
-              width: 20.w,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(2.r),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
   // 朋友圈动态列表
   Widget _buildPostList() {
     return Obx(
-      () => ListView.separated(
+      () => ListView.builder(
         itemCount: controller.posts.length,
-        separatorBuilder: (context, index) => Divider(height: 1.h),
         itemBuilder: (context, index) {
           final post = controller.posts[index];
           return _buildPostItem(
@@ -127,7 +117,7 @@ class ZonePage extends GetView<ZoneListController> {
         children: [
           // 用户信息
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // 头像
               ClipRRect(
@@ -179,7 +169,7 @@ class ZonePage extends GetView<ZoneListController> {
               Icon(Icons.more_horiz, color: Colors.grey, size: 20.sp),
             ],
           ),
-          // 内容 - 可点击进入详情页
+          // 内容 - 点击进入详情页
           GestureDetector(
             onTap:
                 () => controller.goToDetail({
@@ -229,7 +219,6 @@ class ZonePage extends GetView<ZoneListController> {
             children: [
               _buildInteractionButton(
                 icon: Icons.message,
-                label: '私聊',
                 color: Colors.teal,
                 onTap: () => controller.goToChat(id, username),
               ),
@@ -283,77 +272,6 @@ class ZonePage extends GetView<ZoneListController> {
     );
   }
 
-  // 底部导航栏
-  Widget _buildBottomNavigation() {
-    return BottomNavigationBar(
-      currentIndex: 1,
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.public), label: '星球'),
-        BottomNavigationBarItem(
-          icon: Stack(
-            children: [
-              const Icon(Icons.dashboard),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  padding: EdgeInsets.all(2.r),
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  constraints: BoxConstraints(minWidth: 14.r, minHeight: 14.r),
-                  child: Text(
-                    '3',
-                    style: TextStyle(color: Colors.white, fontSize: 10.sp),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          label: '广场',
-        ),
-        BottomNavigationBarItem(
-          icon: FloatingActionButton(
-            onPressed: controller.goToCreate,
-            child: Icon(Icons.add),
-            backgroundColor: Colors.teal,
-            mini: false,
-          ),
-          label: '发布瞬间',
-        ),
-        BottomNavigationBarItem(
-          icon: Stack(
-            children: [
-              const Icon(Icons.message),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  padding: EdgeInsets.all(2.r),
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  constraints: BoxConstraints(minWidth: 14.r, minHeight: 14.r),
-                  child: Text(
-                    '5',
-                    style: TextStyle(color: Colors.white, fontSize: 10.sp),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          label: '聊天',
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: '自己'),
-      ],
-    );
-  }
-
   // 主视图
   Widget _buildView() {
     return Column(children: [_buildTabs(), Expanded(child: _buildPostList())]);
@@ -363,17 +281,7 @@ class ZonePage extends GetView<ZoneListController> {
   Widget build(BuildContext context) {
     return GetBuilder<ZoneListController>(
       builder: (_) {
-        return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(0), // 隐藏默认AppBar
-            child: AppBar(elevation: 0, backgroundColor: Colors.white),
-          ),
-          body: SafeArea(child: _buildView()),
-          bottomNavigationBar: _buildBottomNavigation(),
-          floatingActionButton: null, // 使用底部导航栏的中间按钮代替
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-        );
+        return BaseLayout(title: '', body: SafeArea(child: _buildView()));
       },
     );
   }
