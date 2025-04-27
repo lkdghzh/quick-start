@@ -19,6 +19,8 @@ class BaseLayout extends GetView<NavigationController> {
     // final navigationController = Get.find<NavigationController>();
 
     return Scaffold(
+      // backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Colors.white,
       appBar: buildAppBar(),
       body: body,
       floatingActionButton: floatingActionButton,
