@@ -360,11 +360,10 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
   Container _buildCommets() {
     return Container(
       color: Colors.white,
-      child: ListView.separated(
+      child: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 15, // 模拟15条评论
-        separatorBuilder: (context, index) => Divider(height: 1, indent: 68.w),
         itemBuilder: (context, index) {
           return _buildCommentItem(
             username: '用户${index + 1}',

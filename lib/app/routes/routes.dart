@@ -44,8 +44,8 @@ class AppPages {
       transition: Transition.fade,
     ),
     GetPage(
-      name: Routes.Zone_LIST,
-      page: () => const ZonePage(),
+      name: Routes.ZONE_LIST,
+      page: () => const ZoneListPage(),
       binding: ZoneListBinding(),
       transition: Transition.fade,
     ),

@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:woome/app/widgets/layout/view.dart';
 
-import '../../../widgets/image.dart';
 import 'controller.dart';
 
-class ZonePage extends GetView<ZoneListController> {
-  const ZonePage({super.key});
+class ZoneListPage extends GetView<ZoneListController> {
+  const ZoneListPage({super.key});
 
   // 顶部标签栏
   Widget _buildTabs() {
@@ -19,25 +18,21 @@ class ZonePage extends GetView<ZoneListController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(width: 10.w),
-          Container(
-            child: Text(
-              '关注',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            '关注',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(width: 10.w),
-          Container(
-            child: Text(
-              '推荐',
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.normal,
-              ),
+          Text(
+            '推荐',
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.normal,
             ),
           ),
           const Spacer(),

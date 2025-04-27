@@ -6,7 +6,7 @@ abstract class Routes {
   static const FAVORATE = '/favorate';
   static const USER = '/user';
 
-  static const Zone_LIST = '/zone/list';
+  static const ZONE_LIST = '/zone/list';
   static const ZONE_DETAIL = '/zone/detail'; // todo 和user整合
   static const ZONE_CREATE = '/zone/create';
 
