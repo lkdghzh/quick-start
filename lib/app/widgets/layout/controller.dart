@@ -14,7 +14,7 @@ class NavigationController extends GetxController {
         Get.offNamed(Routes.FAVORATE);
         break;
       case 2:
-        Get.offNamed(Routes.Zone);
+        Get.offNamed(Routes.Zone_LIST);
         break;
       case 3:
         Get.offNamed(Routes.CHAT_LIST);

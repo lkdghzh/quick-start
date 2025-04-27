@@ -29,6 +29,14 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
                   width: 50.w,
                   height: 50.w,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 50.w,
+                      height: 50.w,
+                      color: Colors.grey[300],
+                      child: Icon(Icons.person, color: Colors.grey[600]),
+                    );
+                  },
                 ),
               ),
               SizedBox(width: 12.w),
@@ -101,6 +109,16 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
                     child: Image.network(
                       (post['imageUrls'] as List)[index],
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey[300],
+                          child: Icon(
+                            Icons.image_not_supported,
+                            color: Colors.grey[600],
+                            size: 50.sp,
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
@@ -122,8 +140,8 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
             ],
           ),
 
-          Divider(height: 32.h, thickness: 0.5),
-
+          // Divider(height: 32.h, thickness: 0.5),
+          SizedBox(height: 32.h),
           // 互动按钮
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -199,6 +217,18 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
               width: 40.w,
               height: 40.w,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: 40.w,
+                  height: 40.w,
+                  color: Colors.grey[300],
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.grey[600],
+                    size: 20.sp,
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(width: 12.w),

@@ -15,6 +15,7 @@ import '../modules/message/bindings/chat_binding.dart';
 import '../modules/user/bindings.dart';
 import '../modules/user/view.dart';
 import '../modules/zone/create/view.dart';
+import '../modules/zone/detail/view.dart';
 
 part 'names.dart';
 
@@ -43,14 +44,14 @@ class AppPages {
       transition: Transition.fade,
     ),
     GetPage(
-      name: Routes.Zone,
+      name: Routes.Zone_LIST,
       page: () => const ZonePage(),
       binding: ZoneListBinding(),
       transition: Transition.fade,
     ),
     GetPage(
-      name: Routes.ZONE_USER,
-      page: () => const ZonePage(),
+      name: Routes.ZONE_DETAIL,
+      page: () => const ZoneDetailPage(),
       binding: ZoneDetailBinding(),
       transition: Transition.fade,
     ),

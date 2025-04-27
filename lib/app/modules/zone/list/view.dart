@@ -165,17 +165,19 @@ class ZonePage extends GetView<ZoneListController> {
           ),
           // 内容 - 点击进入详情页
           GestureDetector(
-            onTap:
-                () => controller.goToDetail({
-                  'id': id,
-                  'username': username,
-                  'avatar': avatar,
-                  'timeAgo': timeAgo,
-                  'content': content,
-                  'imageUrls': imageUrls,
-                  'likes': likes,
-                  'comments': comments,
-                }),
+            onTap: () {
+              print('点击了');
+              controller.goToDetail({
+                'id': id,
+                'username': username,
+                'avatar': avatar,
+                'timeAgo': timeAgo,
+                'content': content,
+                'imageUrls': imageUrls,
+                'likes': likes,
+                'comments': comments,
+              });
+            },
             child: Padding(
               padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
               child: Text(content, style: TextStyle(fontSize: 15.sp)),
