@@ -279,22 +279,6 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
     );
   }
 
-  Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Icon(icon, size: 20.sp, color: Colors.grey[700]),
-          SizedBox(width: 4.w),
-          Text(
-            label,
-            style: TextStyle(fontSize: 14.sp, color: Colors.grey[700]),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildCommentItem({
     required String username,
     required String avatar,
@@ -390,6 +374,22 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Icon(icon, size: 20.sp, color: Colors.grey[700]),
+          SizedBox(width: 4.w),
+          Text(
+            label,
+            style: TextStyle(fontSize: 14.sp, color: Colors.grey[700]),
           ),
         ],
       ),
