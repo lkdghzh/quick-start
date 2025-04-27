@@ -353,29 +353,27 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
   Widget _buildView() {
     // 使用Expanded包裹可滚动内容
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildPostContent(),
-          Container(
-            color: Colors.white,
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 15, // 模拟15条评论
-              separatorBuilder:
-                  (context, index) => Divider(height: 1, indent: 68.w),
-              itemBuilder: (context, index) {
-                return _buildCommentItem(
-                  username: '用户${index + 1}',
-                  avatar: 'https://picsum.photos/200/200?random=${index + 10}',
-                  content: '这是第${index + 1}条评论，评论内容可能很长很长很长很长很长很长很长很长很长很长很长很长',
-                  timeAgo: '${index * 5 + 1}分钟前',
-                  likes: index % 5 == 0 ? index + 3 : 0,
-                );
-              },
-            ),
-          ),
-        ],
+      child: Column(children: [_buildPostContent(), _buildCommets()]),
+    );
+  }
+
+  Container _buildCommets() {
+    return Container(
+      color: Colors.white,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 15, // 模拟15条评论
+        separatorBuilder: (context, index) => Divider(height: 1, indent: 68.w),
+        itemBuilder: (context, index) {
+          return _buildCommentItem(
+            username: '用户${index + 1}',
+            avatar: 'https://picsum.photos/200/200?random=${index + 10}',
+            content: '这是第${index + 1}条评论，评论内容可能很长很长很长很长很长很长很长很长很长很长很长很长',
+            timeAgo: '${index * 5 + 1}分钟前',
+            likes: index % 5 == 0 ? index + 3 : 0,
+          );
+        },
       ),
     );
   }
