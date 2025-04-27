@@ -298,7 +298,22 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
             foregroundColor: Colors.black,
             elevation: 0.5,
           ),
-          body: _buildView(),
+          body: Stack(
+            children: [
+              // 内容区域，底部留出输入框的高度
+              Positioned.fill(
+                bottom: 60.h, // 预留输入框高度
+                child: _buildView(),
+              ),
+              // 底部固定输入框
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: _buildCommentInput(),
+              ),
+            ],
+          ),
         );
       },
     );
@@ -333,50 +348,50 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
         ],
       ),
     );
-    // 评论输入框固定在底部
-    // _buildCommentInput(),
   }
 
   // 底部评论输入框
   Widget _buildCommentInput() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: 40.h,
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(20.r),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: '说点什么...',
-                  hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(bottom: 10.h),
+    return SafeArea(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 40.h,
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: '说点什么...',
+                    hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(bottom: 10.h),
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 8.w),
-          IconButton(
-            icon: Icon(Icons.send, color: Colors.teal),
-            onPressed: () {},
-          ),
-        ],
+            SizedBox(width: 2.w),
+            IconButton(
+              icon: Icon(Icons.send, color: Colors.teal),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     );
   }
