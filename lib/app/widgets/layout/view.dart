@@ -5,8 +5,14 @@ import 'controller.dart';
 class BaseLayout extends GetView<NavigationController> {
   final String title;
   final Widget body;
+  final Widget? floatingActionButton;
 
-  const BaseLayout({super.key, required this.body, required this.title});
+  const BaseLayout({
+    super.key,
+    required this.body,
+    required this.title,
+    this.floatingActionButton,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +21,7 @@ class BaseLayout extends GetView<NavigationController> {
     return Scaffold(
       appBar: buildAppBar(),
       body: body,
+      floatingActionButton: floatingActionButton,
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           currentIndex: controller.selectedIndex.value,

@@ -277,7 +277,15 @@ class ZoneListPage extends GetView<ZoneListController> {
   Widget build(BuildContext context) {
     return GetBuilder<ZoneListController>(
       builder: (_) {
-        return BaseLayout(title: '', body: SafeArea(child: _buildView()));
+        return BaseLayout(
+          title: '',
+          body: SafeArea(child: _buildView()),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => controller.goToCreate(),
+            backgroundColor: Colors.pink,
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
+        );
       },
     );
   }
