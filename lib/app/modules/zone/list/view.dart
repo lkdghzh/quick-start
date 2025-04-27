@@ -153,22 +153,14 @@ class ZonePage extends GetView<ZoneListController> {
                 ),
               ),
               // 关注按钮
-              Container(
-                height: 32.h,
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: Colors.teal),
+              IconButton(
+                icon: const Icon(
+                  Icons.chat_bubble_outline,
+                  color: Colors.black87,
+                  size: 20,
                 ),
-                child: Center(
-                  child: Text(
-                    '关注',
-                    style: TextStyle(color: Colors.teal, fontSize: 14.sp),
-                  ),
-                ),
+                onPressed: () {},
               ),
-              SizedBox(width: 8.w),
-              Icon(Icons.more_horiz, color: Colors.grey, size: 20.sp),
             ],
           ),
           // 内容 - 点击进入详情页
@@ -227,12 +219,6 @@ class ZonePage extends GetView<ZoneListController> {
           // 互动区域
           Row(
             children: [
-              _buildInteractionButton(
-                icon: Icons.message,
-                label: '私聊',
-                color: Colors.black,
-                onTap: () => controller.goToChat(id, username),
-              ),
               Spacer(),
               _buildInteractionButton(
                 icon: Icons.favorite,
@@ -267,7 +253,7 @@ class ZonePage extends GetView<ZoneListController> {
   // 互动按钮
   Widget _buildInteractionButton({
     required IconData icon,
-    required String label,
+    String? label,
     required Color color,
     required VoidCallback onTap,
   }) {
@@ -277,7 +263,9 @@ class ZonePage extends GetView<ZoneListController> {
         children: [
           Icon(icon, color: color, size: 20.sp),
           SizedBox(width: 4.w),
-          Text(label, style: TextStyle(color: color, fontSize: 12.sp)),
+          label != null && label.isNotEmpty
+              ? Text(label, style: TextStyle(color: color, fontSize: 12.sp))
+              : const SizedBox.shrink(),
         ],
       ),
     );
