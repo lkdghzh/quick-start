@@ -10,14 +10,43 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> post = Get.arguments as Map<String, dynamic>;
+
     return GetBuilder<ZoneDetailController>(
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('详情'),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Get.back(),
+            ),
+            title: _buildUserInfo(post),
+            titleSpacing: 0, // 去除标题的默认间距，使其靠左
+            centerTitle: false, // 明确指定标题不居中
             backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
             elevation: 0.5,
+            actions: [
+              // 关注按钮
+              Padding(
+                padding: EdgeInsets.only(right: 16.w),
+                child: Center(
+                  child: Container(
+                    height: 32.h,
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      border: Border.all(color: Colors.pink),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '关注',
+                        style: TextStyle(color: Colors.pink, fontSize: 14.sp),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           body: Stack(
             children: [
@@ -37,6 +66,59 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
           ),
         );
       },
+    );
+  }
+
+  // 构建自定义AppBar中的用户信息
+  Widget _buildUserInfo(Map<String, dynamic> post) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        // 头像
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18.r),
+          child: CachedNetworkImage(
+            imageUrl:
+                post['avatar'] ?? 'https://picsum.photos/200/200?random=1',
+            width: 36.w,
+            height: 36.w,
+            fit: BoxFit.cover,
+            placeholder:
+                (context, url) => Container(
+                  width: 36.w,
+                  height: 36.w,
+                  color: Colors.grey[300],
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.grey[600],
+                    size: 18.sp,
+                  ),
+                ),
+            errorWidget:
+                (context, url, error) => Container(
+                  width: 36.w,
+                  height: 36.w,
+                  color: Colors.grey[300],
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.grey[600],
+                    size: 18.sp,
+                  ),
+                ),
+          ),
+        ),
+        SizedBox(width: 8.w),
+        // 用户名
+        Text(
+          post['username'] ?? '用户名',
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+      ],
     );
   }
 
@@ -67,73 +149,13 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 用户信息
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 头像
-              ClipRRect(
-                borderRadius: BorderRadius.circular(25.r),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      post['avatar'] ??
-                      'https://picsum.photos/200/200?random=1',
-                  width: 50.w,
-                  height: 50.w,
-                  fit: BoxFit.cover,
-                  placeholder:
-                      (context, url) => Container(
-                        width: 50.w,
-                        height: 50.w,
-                        color: Colors.grey[300],
-                        child: Icon(Icons.person, color: Colors.grey[600]),
-                      ),
-                  errorWidget:
-                      (context, url, error) => Container(
-                        width: 50.w,
-                        height: 50.w,
-                        color: Colors.grey[300],
-                        child: Icon(Icons.person, color: Colors.grey[600]),
-                      ),
-                ),
-              ),
-              SizedBox(width: 12.w),
-              // 用户名和时间
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      post['username'] ?? '用户名',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      post['timeAgo'] ?? '刚刚',
-                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              // 关注按钮
-              Container(
-                height: 32.h,
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: Colors.teal),
-                ),
-                child: Center(
-                  child: Text(
-                    '关注',
-                    style: TextStyle(color: Colors.teal, fontSize: 14.sp),
-                  ),
-                ),
-              ),
-            ],
+          // 移除用户信息部分，改为显示发布时间
+          Padding(
+            padding: EdgeInsets.only(bottom: 12.h),
+            child: Text(
+              post['timeAgo'] ?? '刚刚',
+              style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+            ),
           ),
 
           // 内容
@@ -209,7 +231,6 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
             ],
           ),
 
-          // Divider(height: 32.h, thickness: 0.5),
           SizedBox(height: 32.h),
           // 互动按钮
           Row(
@@ -220,6 +241,8 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
               _buildActionButton(Icons.share_outlined, '分享', () {}),
             ],
           ),
+
+          Divider(height: 32.h, thickness: 8, color: Colors.grey[100]),
         ],
       ),
     );
