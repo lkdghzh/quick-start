@@ -220,8 +220,6 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
               _buildActionButton(Icons.share_outlined, '分享', () {}),
             ],
           ),
-
-          Divider(height: 32.h, thickness: 8, color: Colors.grey[100]),
         ],
       ),
     );
