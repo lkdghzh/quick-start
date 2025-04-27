@@ -14,6 +14,15 @@ class ZoneDetailController extends GetxController {
   // 是否已点赞
   final isLiked = false.obs;
 
+  // 加载更多状态
+  final isLoadingMore = false.obs;
+
+  // 是否还有更多数据
+  final hasMoreData = true.obs;
+
+  // 当前页码
+  int _currentPage = 1;
+
   @override
   void onInit() {
     super.onInit();
@@ -64,6 +73,47 @@ class ZoneDetailController extends GetxController {
         'likes': 0,
       },
     ]);
+  }
+
+  // 加载更多评论
+  Future<void> loadMoreComments() async {
+    // 如果正在加载或没有更多数据，直接返回
+    if (isLoadingMore.value || !hasMoreData.value) return;
+
+    // 设置加载状态
+    isLoadingMore.value = true;
+
+    // 模拟网络请求延迟
+    await Future.delayed(const Duration(seconds: 1));
+
+    // 页码增加
+    _currentPage++;
+
+    // 模拟加载更多数据
+    if (_currentPage <= 3) {
+      final moreComments = List.generate(3, (index) {
+        final commentIndex = comments.length + index + 1;
+        return {
+          'id': commentIndex.toString(),
+          'userName': '用户$commentIndex',
+          'userAvatar':
+              'https://picsum.photos/200/200?random=${10 + commentIndex}',
+          'content': '这是加载的第${_currentPage}页评论，评论内容可能很长很长很长...',
+          'timeAgo': '${index * 5 + 20}分钟前',
+          'likes': index,
+        };
+      });
+
+      comments.addAll(moreComments);
+    } else {
+      // 模拟没有更多数据了
+      hasMoreData.value = false;
+    }
+
+    // 重置加载状态
+    isLoadingMore.value = false;
+
+    update();
   }
 
   // 发表评论

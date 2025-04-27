@@ -8,6 +8,55 @@ import 'controller.dart';
 class ZoneDetailPage extends GetView<ZoneDetailController> {
   const ZoneDetailPage({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<ZoneDetailController>(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('详情'),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 0.5,
+          ),
+          body: Stack(
+            children: [
+              // 内容区域，底部留出输入框的高度
+              Positioned.fill(
+                bottom: 60.h, // 预留输入框高度
+                child: _buildView(),
+              ),
+              // 底部固定输入框
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: _buildCommentInput(),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // 主视图
+  Widget _buildView() {
+    // 只使用滚动监听实现上滑加载更多
+    return NotificationListener<ScrollNotification>(
+      onNotification: (ScrollNotification scrollInfo) {
+        // 检测滚动到底部，触发加载更多
+        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+          controller.loadMoreComments();
+        }
+        return false;
+      },
+      child: SingleChildScrollView(
+        child: Column(children: [_buildPostContent(), _buildCommets()]),
+      ),
+    );
+  }
+
   // 顶部帖子内容
   Widget _buildPostContent() {
     final Map<String, dynamic> post = Get.arguments as Map<String, dynamic>;
@@ -178,6 +227,58 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
     );
   }
 
+  Container _buildCommets() {
+    return Container(
+      color: Colors.red,
+      child: Column(
+        children: [
+          Obx(
+            () => ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: controller.comments.length, // 使用控制器中的评论数据
+              itemBuilder: (context, index) {
+                final comment = controller.comments[index];
+                return _buildCommentItem(
+                  username: comment['userName'] ?? '',
+                  avatar: comment['userAvatar'] ?? '',
+                  content: comment['content'] ?? '',
+                  timeAgo: comment['timeAgo'] ?? '',
+                  likes: comment['likes'] ?? 0,
+                );
+              },
+            ),
+          ),
+          // 底部加载状态指示器
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 16.h),
+            color: Colors.blue,
+            child: Center(
+              child: Obx(
+                () =>
+                    controller.isLoadingMore.value
+                        ? SizedBox(
+                          width: 24.w,
+                          height: 24.w,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.teal,
+                            ),
+                          ),
+                        )
+                        : Text(
+                          controller.hasMoreData.value ? "上拉加载更多" : "-- 到底了 --",
+                          style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+                        ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
@@ -194,29 +295,6 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
     );
   }
 
-  // 评论列表
-  Widget _buildCommentList() {
-    return Expanded(
-      child: Container(
-        color: Colors.white,
-        child: ListView.separated(
-          itemCount: 15, // 模拟15条评论
-          separatorBuilder:
-              (context, index) => Divider(height: 1, indent: 68.w),
-          itemBuilder: (context, index) {
-            return _buildCommentItem(
-              username: '用户${index + 1}',
-              avatar: 'https://picsum.photos/200/200?random=${index + 10}',
-              content: '这是第${index + 1}条评论，评论内容可能很长很长很长很长很长很长很长很长很长很长很长很长',
-              timeAgo: '${index * 5 + 1}分钟前',
-              likes: index % 5 == 0 ? index + 3 : 0,
-            );
-          },
-        ),
-      ),
-    );
-  }
-
   Widget _buildCommentItem({
     required String username,
     required String avatar,
@@ -226,6 +304,7 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
   }) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      color: Colors.yellow,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -313,66 +392,6 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<ZoneDetailController>(
-      builder: (_) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('详情'),
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            elevation: 0.5,
-          ),
-          body: Stack(
-            children: [
-              // 内容区域，底部留出输入框的高度
-              Positioned.fill(
-                bottom: 60.h, // 预留输入框高度
-                child: _buildView(),
-              ),
-              // 底部固定输入框
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: _buildCommentInput(),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  // 主视图
-  Widget _buildView() {
-    // 使用Expanded包裹可滚动内容
-    return SingleChildScrollView(
-      child: Column(children: [_buildPostContent(), _buildCommets()]),
-    );
-  }
-
-  Container _buildCommets() {
-    return Container(
-      color: Colors.white,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 15, // 模拟15条评论
-        itemBuilder: (context, index) {
-          return _buildCommentItem(
-            username: '用户${index + 1}',
-            avatar: 'https://picsum.photos/200/200?random=${index + 10}',
-            content: '这是第${index + 1}条评论，评论内容可能很长很长很长很长很长很长很长很长很长很长很长很长',
-            timeAgo: '${index * 5 + 1}分钟前',
-            likes: index % 5 == 0 ? index + 3 : 0,
-          );
-        },
       ),
     );
   }
