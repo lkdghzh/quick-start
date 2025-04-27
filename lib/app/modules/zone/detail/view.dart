@@ -287,6 +287,56 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<ZoneDetailController>(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('详情'),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 0.5,
+          ),
+          body: _buildView(),
+        );
+      },
+    );
+  }
+
+  // 主视图
+  Widget _buildView() {
+    // 使用Expanded包裹可滚动内容
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildPostContent(),
+          Container(
+            color: Colors.white,
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 15, // 模拟15条评论
+              separatorBuilder:
+                  (context, index) => Divider(height: 1, indent: 68.w),
+              itemBuilder: (context, index) {
+                return _buildCommentItem(
+                  username: '用户${index + 1}',
+                  avatar: 'https://picsum.photos/200/200?random=${index + 10}',
+                  content: '这是第${index + 1}条评论，评论内容可能很长很长很长很长很长很长很长很长很长很长很长很长',
+                  timeAgo: '${index * 5 + 1}分钟前',
+                  likes: index % 5 == 0 ? index + 3 : 0,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+    // 评论输入框固定在底部
+    // _buildCommentInput(),
+  }
+
   // 底部评论输入框
   Widget _buildCommentInput() {
     return Container(
@@ -328,34 +378,6 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
           ),
         ],
       ),
-    );
-  }
-
-  // 主视图
-  Widget _buildView() {
-    return Column(
-      children: [
-        _buildPostContent(),
-        _buildCommentList(),
-        _buildCommentInput(),
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<ZoneDetailController>(
-      builder: (_) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('详情'),
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            elevation: 0.5,
-          ),
-          body: _buildView(),
-        );
-      },
     );
   }
 }
