@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'controller.dart';
 
@@ -24,19 +25,27 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
               // 头像
               ClipRRect(
                 borderRadius: BorderRadius.circular(25.r),
-                child: Image.network(
-                  post['avatar'] ?? 'https://picsum.photos/200/200?random=1',
+                child: CachedNetworkImage(
+                  imageUrl:
+                      post['avatar'] ??
+                      'https://picsum.photos/200/200?random=1',
                   width: 50.w,
                   height: 50.w,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      width: 50.w,
-                      height: 50.w,
-                      color: Colors.grey[300],
-                      child: Icon(Icons.person, color: Colors.grey[600]),
-                    );
-                  },
+                  placeholder:
+                      (context, url) => Container(
+                        width: 50.w,
+                        height: 50.w,
+                        color: Colors.grey[300],
+                        child: Icon(Icons.person, color: Colors.grey[600]),
+                      ),
+                  errorWidget:
+                      (context, url, error) => Container(
+                        width: 50.w,
+                        height: 50.w,
+                        color: Colors.grey[300],
+                        child: Icon(Icons.person, color: Colors.grey[600]),
+                      ),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -106,19 +115,30 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
                 itemBuilder: (context, index) {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(8.r),
-                    child: Image.network(
-                      (post['imageUrls'] as List)[index],
+                    child: CachedNetworkImage(
+                      imageUrl: (post['imageUrls'] as List)[index],
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.grey[300],
-                          child: Icon(
-                            Icons.image_not_supported,
-                            color: Colors.grey[600],
-                            size: 50.sp,
+                      placeholder:
+                          (context, url) => Container(
+                            color: Colors.grey[300],
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.grey[400]!,
+                                ),
+                                strokeWidth: 2.0,
+                              ),
+                            ),
                           ),
-                        );
-                      },
+                      errorWidget:
+                          (context, url, error) => Container(
+                            color: Colors.grey[300],
+                            child: Icon(
+                              Icons.image_not_supported,
+                              color: Colors.grey[600],
+                              size: 50.sp,
+                            ),
+                          ),
                     ),
                   );
                 },
@@ -212,23 +232,33 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
           // 头像
           ClipRRect(
             borderRadius: BorderRadius.circular(20.r),
-            child: Image.network(
-              avatar,
+            child: CachedNetworkImage(
+              imageUrl: avatar,
               width: 40.w,
               height: 40.w,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  width: 40.w,
-                  height: 40.w,
-                  color: Colors.grey[300],
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.grey[600],
-                    size: 20.sp,
+              placeholder:
+                  (context, url) => Container(
+                    width: 40.w,
+                    height: 40.w,
+                    color: Colors.grey[300],
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.grey[600],
+                      size: 20.sp,
+                    ),
                   ),
-                );
-              },
+              errorWidget:
+                  (context, url, error) => Container(
+                    width: 40.w,
+                    height: 40.w,
+                    color: Colors.grey[300],
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.grey[600],
+                      size: 20.sp,
+                    ),
+                  ),
             ),
           ),
           SizedBox(width: 12.w),
@@ -367,6 +397,11 @@ class ZoneDetailPage extends GetView<ZoneDetailController> {
         ),
         child: Row(
           children: [
+            // 添加图片按钮
+            IconButton(
+              icon: Icon(Icons.image_outlined, color: Colors.grey[600]),
+              onPressed: () {},
+            ),
             Expanded(
               child: Container(
                 height: 40.h,
